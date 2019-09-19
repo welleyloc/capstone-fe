@@ -7,6 +7,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { SuppliersComponent } from './suppliers/suppliers.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { HttpClient } from 'selenium-webdriver/http';
+import { GoogleChartModule } from './google-chart/google-chart.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { HttpClient } from 'selenium-webdriver/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClient
+    // HttpClient,
+    GoogleChartModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
