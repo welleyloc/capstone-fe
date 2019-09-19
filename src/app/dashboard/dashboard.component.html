@@ -1,0 +1,116 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm main">
+            <h1 class="page-header">Dashboard</h1>
+
+            <h2 class="sub-header">{{ sectionTitle }}</h2>
+
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addProductForm">Add Product</button>
+            <button type="button" class="btn btn-default">
+                <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+            </button>
+
+            <!-- Alerts -->
+            <div class="alert-group">
+                <div class="alert alert-success " role="alert">...</div>
+                <div class="alert alert-info d-none" role="alert">...</div>
+                <div class="alert alert-warning d-none" role="alert">...</div>
+                <div class="alert alert-danger d-none" role="alert">...</div>
+            </div>
+            <!-- "id","productName","category","fullPrice","salePrice","availability","supplier" -->
+
+            <!-- Table -->
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>product name</th>
+                            <th>category</th>
+                            <th>full price</th>
+                            <th>sale price</th>
+                            <th>supplier</th>
+                            <th>availability</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- For-loop the table data rows-->
+                        <tr>
+                            <td>1,001</td>
+                            <td>Lorem</td>
+                            <td>ipsum</td>
+                            <td>ipsum</td>
+                            <td>dolor</td>
+                            <td>sit</td>
+                            <td class="text-right" id="tableDataBtns">
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-secondary"><i class="far fa-edit"></i></button>
+                                    <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <nav aria-label="Table Navigation">
+                <ul class="pagination">
+                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Add Product Form -->
+    <div class="modal fade" id="addProductForm" tabindex="-1">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Add a Product</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="productName">Product Name</label>
+                            <input type="text" class="form-control" id="productName" placeholder="Product Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="productCategory">Product Category</label>
+                            <select class="form-control" id="productCategory">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="productSupplier">Product Supplier</label>
+                            <input type="text" class="form-control" id="productSupplier" placeholder="Supplier">
+                        </div>
+                        <div class="form-group">
+                            <label for="productPrice">Price</label>
+                            <input type="number" id="productPrice">
+                        </div>
+                        <div class="form-group">
+                            <label for="productSalePrice">Sale Price</label>
+                            <input type="number" id="productSalePrice">
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"> Available
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-success">Submit</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</div>
+

@@ -1,1 +1,22 @@
-/* You can add global styles to this file, and also import other style files */
+/*
+ * Main content
+ */
+
+ .main {
+    padding: 20px;
+}
+
+@media (min-width: 768px) {
+    .main {
+        padding-right: 40px;
+        padding-left: 40px;
+    }
+}
+
+.main .page-header {
+    margin-top: 0;
+}
+
+.alert-group {
+    margin-top: 20px;
+}
