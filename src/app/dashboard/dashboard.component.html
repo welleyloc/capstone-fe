@@ -17,8 +17,6 @@
                 <div class="alert alert-warning d-none" role="alert">...</div>
                 <div class="alert alert-danger d-none" role="alert">...</div>
             </div>
-            <!-- "id","productName","category","fullPrice","salePrice","availability","supplier" -->
-
             <!-- Table -->
             <div class="table-responsive">
                 <table class="table table-bordered table-striped">
@@ -31,17 +29,19 @@
                             <th>sale price</th>
                             <th>supplier</th>
                             <th>availability</th>
+                            <th>discount (%)</th>
                         </tr>
                     </thead>
                     <tbody>
                         <!-- For-loop the table data rows-->
-                        <tr>
-                            <td>1,001</td>
-                            <td>Lorem</td>
-                            <td>ipsum</td>
-                            <td>ipsum</td>
-                            <td>dolor</td>
-                            <td>sit</td>
+                        <tr *ngFor="let product of products">
+                            <td>{{ product.id }}</td>
+                            <td>{{ product.productName }}</td>
+                            <td>{{ product.category }}</td>
+                            <td>{{ product.fullPrice }}</td>
+                            <td>{{ product.salePrice }}</td>
+                            <td>{{ product.supplier }}</td>
+                            <td>{{ product.discountPercent }}</td>
                             <td class="text-right" id="tableDataBtns">
                                 <div class="btn-group" role="group">
                                     <button type="button" class="btn btn-secondary"><i class="far fa-edit"></i></button>
