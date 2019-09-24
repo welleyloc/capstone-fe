@@ -1,27 +1,40 @@
-# CapstoneFe
+### TTS Capstone Front-end
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.1.
+* This project was generated with Angular CLI version 8.3.1.
+* Note that the back-end for this project is located at [capstone-be]()
 
-## Development server
+#### Additional imports
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+* Font awesome CDN
+* Google Charts Module
+* Bootstrap 4 (angular.json)
 
-## Code scaffolding
+#### Process
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+1. Format the given front-end template into Angular
+2. Convert the given product CSV with Spring Batch to H2 database and use batch processor to map dept id # to dept name
 
-## Build
+#### Project requirements
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+[] Create a RESTful API service to add, update, and retrieve product information
+[] Uses Hibernate to interact with a SQL database
+[x] Utilizes Angular on the front-end 
 
-## Running unit tests
+Each product is an record with the following columns:
+[] id: unique identifier
+[] name
+[] category: ID relating to category table
+[] full_price: up to two places of decimal
+[] sale_price: up to two places of decimal
+[] availability: boolean value stating is the product is in stock (true) or not (false)
+[] supplier?: related table?
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+The MVP will be able to :
+[] Perform basic CRUD functions
+[] Return a list of products by category
+[] Return a list of products by category and availability
+[] Sort products by full price, sale price, and the percentage of discount
 
-## Running end-to-end tests
+#### Development server
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Clone repo, type `npm install` in project directory to restore node_modules, and run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.

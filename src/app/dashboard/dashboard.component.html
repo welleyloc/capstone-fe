@@ -1,51 +1,76 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm main">
-            <h1 class="page-header">Dashboard</h1>
+        <div class="main">
 
-            <h2 class="sub-header">{{ sectionTitle }}</h2>
+            <div class="row">
+                <div class="col">
+                    <h2 class="page-header">{{ headerTitle }}</h2>
+                    <!-- Product counter -->
+                    <h3 class="sub-header">{{ sectionTitle }} <app-counter></app-counter> </h3>
 
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addProductForm">Add Product</button>
+                    <br><br>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addProductForm">Add
+                        Product</button>&nbsp;
+                    <button type="button" class="btn btn-warning" data-toggle="modal"
+                        data-target="#sortProductsForm">Sort Products</button>
+
+                </div>
+                <div class="col">
+                    <app-pie-chart></app-pie-chart>
+                </div>
+            </div>
             <button type="button" class="btn btn-default">
                 <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
             </button>
 
             <!-- Alerts -->
-            <div class="alert-group">
-                <div class="alert alert-success " role="alert">...</div>
-                <div class="alert alert-info d-none" role="alert">...</div>
-                <div class="alert alert-warning d-none" role="alert">...</div>
-                <div class="alert alert-danger d-none" role="alert">...</div>
-            </div>
-            <!-- Table -->
+            <div class="alert alert-primary" id="alertColor"><span id="alertText">Status message...</span></div>
+
+            <!-- Product Table -->
             <div class="table-responsive">
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th>id</th>
-                            <th>product name</th>
-                            <th>category</th>
-                            <th>full price</th>
-                            <th>sale price</th>
-                            <th>supplier</th>
-                            <th>availability</th>
-                            <th>discount (%)</th>
+                            <th>ID</th>
+                            <th>Product</th>
+                            <th>Full Price ($)</th>
+                            <th>Sale Price ($)</th>
+                            <th>Discount (%)</th>
+                            <th>Supplier</th>
+                            <th>Category</th>
+                            <th>Status</th>
+                            <th>Edit/Delete</th>
                         </tr>
                     </thead>
                     <tbody>
                         <!-- For-loop the table data rows-->
                         <tr *ngFor="let product of products">
                             <td>{{ product.id }}</td>
-                            <td>{{ product.productName }}</td>
-                            <td>{{ product.category }}</td>
-                            <td>{{ product.fullPrice }}</td>
-                            <td>{{ product.salePrice }}</td>
-                            <td>{{ product.supplier }}</td>
+                            <td><input id="fields" value="{{ product.productName }}" disabled></td>
+                            <td><input style="width: 100px" value="{{ product.fullPrice }}" disabled></td>
+                            <td><input style="width: 100px" value="{{ product.salePrice }}" disabled></td>
                             <td>{{ product.discountPercent }}</td>
+                            <td><input value="{{ product.supplier }}" disabled></td>
+                            <td>
+                                <select name="category" style="width: 100px" disabled>
+                                    <option value="{{ product.category }}">{{ product.category }}</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="availability" style="width: 120px" disabled>
+                                    <option value="{{ product.availability }}">{{ product.availability }}</option>
+                                </select>
+                            </td>
                             <td class="text-right" id="tableDataBtns">
                                 <div class="btn-group" role="group">
-                                    <button type="button" class="btn btn-secondary"><i class="far fa-edit"></i></button>
-                                    <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                                    <!-- <button type="button" class="btn btn-secondary" routerLink="/edit"><i
+                                            class="far fa-edit"></i></button> -->
+                                    <!-- Edit button -->
+                                    <button type="button" class="btn btn-secondary activateInput"><i
+                                            class="far fa-edit" id="editButton" (click)="update()"></i></button>
+                                    <!-- Delete button -->
+                                    <button type="button" class="btn btn-danger" (click)="delete(product.id)"
+                                        *ngIf="product.id"><i class="far fa-trash-alt"></i></button>
                                 </div>
                             </td>
                         </tr>
@@ -68,8 +93,9 @@
     <div class="modal fade" id="addProductForm" tabindex="-1">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
+                <button type="button" class="close align-right" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">Add a Product</h4>
                 </div>
                 <div class="modal-body">
@@ -81,6 +107,7 @@
                         <div class="form-group">
                             <label for="productCategory">Product Category</label>
                             <select class="form-control" id="productCategory">
+                                <!-- populate options with categories -->
                                 <option>1</option>
                                 <option>2</option>
                                 <option>3</option>
@@ -100,17 +127,17 @@
                         </div>
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox"> Available
+                                <input type="checkbox">Available
                             </label>
                         </div>
                         <button type="submit" class="btn btn-success">Submit</button>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-</div>
 
+</div>

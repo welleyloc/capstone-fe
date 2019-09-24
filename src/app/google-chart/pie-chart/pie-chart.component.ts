@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GoogleChartService } from '../service/google-chart.service';
+import { Product } from 'src/app/product';
 
 @Component({
   selector: 'app-pie-chart',
@@ -9,6 +10,7 @@ import { GoogleChartService } from '../service/google-chart.service';
 export class PieChartComponent implements OnInit {
 
   private gLib: any;
+  products: Product[];
 
   constructor(private gChartService: GoogleChartService) { 
     this.gLib = this.gChartService.getGoogle();
@@ -18,10 +20,13 @@ export class PieChartComponent implements OnInit {
 
   drawChart() {
     let data = this.gLib.visualization.arrayToDataTable([
-      ['Fruit', 'Count'],
+      ['Type', 'Count'],
       ['Apples', 10],
       ['Oranges', 40],
       ['Peaches', 23],
+      ['Pineapples', 10],
+      ['Mandarins', 40],
+      ['Grapes', 23],
     ])
 
     let chart = new this.gLib.visualization.PieChart(document.getElementById('pieChart'));
