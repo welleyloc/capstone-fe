@@ -1,0 +1,23 @@
+<div class="container-fluid" style="margin-top: 20px; margin-left: 85px;">
+        <h2 class="page-header">{{ headerTitle }}</h2>
+        <h3 class="page-header">Total categories: <span id="categorySize"></span></h3>
+        <p></p>
+<div class="table-responsive" style="width: 300px">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Category</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- For-loop the table data rows-->
+                <tr *ngFor="let category of categories">
+                    <td>{{ category.categoryId }}</td>
+                    <td>{{ category.categoryName }}</td>
+                   
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

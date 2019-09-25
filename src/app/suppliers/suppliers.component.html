@@ -1,0 +1,23 @@
+<div class="container-fluid" style="margin-top: 20px; margin-left: 75px;">
+        <h2 class="page-header">{{ headerTitle }}</h2>
+        <h3 class="page-header">Total suppliers: <span id="supplierSize"></span></h3>
+        <p></p>
+<div class="table-responsive" style="width: 500px">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Supplier</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- For-loop the table data rows-->
+                <tr *ngFor="let supplier of suppliers">
+                    <td>{{ supplier.supplierId }}</td>
+                    <td>{{ supplier.supplierName }}</td>
+                   
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,6 +8,10 @@ import { GoogleChartModule } from './google-chart/google-chart.module';
 import { HttpClientModule } from '@angular/common/http';
 import { EditComponent } from './edit/edit.component';
 import { CounterComponent } from './counter/counter.component';
+import { SortComponent } from './sort/sort.component';
+import { AddComponent } from './add/add.component';
+import { SuppliersComponent } from './suppliers/suppliers.component';
+import { CategoriesComponent } from './categories/categories.component';
 
 @NgModule({
   declarations: [
@@ -16,13 +19,16 @@ import { CounterComponent } from './counter/counter.component';
     DashboardComponent,
     EditComponent,
     CounterComponent,
+    SortComponent,
+    AddComponent,
+    SuppliersComponent,
+    CategoriesComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     GoogleChartModule,
     HttpClientModule,
-    NgbAlertModule
   ],
   providers: [],
   bootstrap: [AppComponent]

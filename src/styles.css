@@ -1,8 +1,4 @@
-/*
- * Main content
- */
-
- .main {
+.main {
     padding: 20px;
 }
 
@@ -20,3 +16,21 @@
 .alert-group {
     margin-top: 20px;
 }
+
+.container-fluid {
+    width: 90%;
+}
+
+.align-right {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.modal-content {
+    padding: 10px;
+}
+
+.close {
+    font-size: 40px;
+}
+

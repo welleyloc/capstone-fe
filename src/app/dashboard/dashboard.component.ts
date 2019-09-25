@@ -18,7 +18,7 @@ export class DashboardComponent implements OnInit {
   alertText: HTMLElement;
   alertColor: any;
   mySubscription: any;
-  
+
   constructor(private productService: ProductService,
     // private activatedRouter: ActivatedRoute,
     private router: Router,
@@ -46,40 +46,42 @@ export class DashboardComponent implements OnInit {
       return product.id === id;
     })
 
+    // stringify the deleted object
     let productString = JSON.stringify(product, null, 4);
 
-    alert("Confirm delete of: " + "\n" + productString);
+    // alert to confirm deletion
+    alert("Confirm deletion of: " + "\n" + productString);
 
-    // repopulates the table without the deleted element 
+    // deletes and repopulates the table
     this.productService.delete(id).subscribe(result => {
-      this.productService.findAll().subscribe(data => {
-        this.products = data
-      })
+      this.productService.findAll();
+
       console.log("Product deleted.");
 
-    // deleted alert box
-    this.alertText = document.getElementById('alertText');
-    this.alertText.innerHTML = "Successfully deleted " + productString + " from the database.";
-    this.alertColor = document.getElementById('alertColor');
-    this.alertColor.classList.add('alert-danger');
+      // alert box status message for 'deleted'
+      this.alertText = document.getElementById('alertText');
+      this.alertText.innerHTML = "Successfully deleted " + productString + " from the database.";
+      this.alertColor = document.getElementById('alertColor');
+      this.alertColor.classList.add('alert-danger');
 
-    // Need this section again for counter component to automatically update.
-    this.productService.findAll().subscribe(data => {
-      this.products = data;
-      this.productCount = JSON.stringify(this.products.length);
-      this.listSizeText = document.getElementById('listSize');
-      this.listSizeText.innerHTML = this.productCount;
-    })
+      // Need this section again for counter component to automatically update.
+      this.productService.findAll().subscribe(data => {
+        this.products = data;
+        this.productCount = JSON.stringify(this.products.length);
+        this.listSizeText = document.getElementById('listSize');
+        this.listSizeText.innerHTML = this.productCount;
+      })
     },
-    
-    error => {console.error("Product delete function error\n" + error);
 
-    // error alert box
-    this.alertText = document.getElementById('alertText');
-    this.alertText.innerHTML = "Error: Product cannot be deleted. Please check console for error message.";
-    this.alertColor = document.getElementById('alertColor');
-    this.alertColor.classList.add('alert-dark');
-    });
+      error => {
+        console.error("Product delete function error\n" + error);
+
+        // error alert box message
+        this.alertText = document.getElementById('alertText');
+        this.alertText.innerHTML = "Error: Product cannot be deleted. Please check console for error message.";
+        this.alertColor = document.getElementById('alertColor');
+        this.alertColor.classList.add('alert-dark');
+      });
 
   }
 

@@ -1,19 +1,18 @@
 <div class="container-fluid">
     <div class="row">
         <div class="main">
-
             <div class="row">
                 <div class="col">
                     <h2 class="page-header">{{ headerTitle }}</h2>
                     <!-- Product counter -->
-                    <h3 class="sub-header">{{ sectionTitle }} <app-counter></app-counter> </h3>
+                    <h3 class="sub-header">{{ sectionTitle }} <app-counter></app-counter>
+                    </h3>
 
                     <br><br>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addProductForm">Add
                         Product</button>&nbsp;
                     <button type="button" class="btn btn-warning" data-toggle="modal"
                         data-target="#sortProductsForm">Sort Products</button>
-
                 </div>
                 <div class="col">
                     <app-pie-chart></app-pie-chart>
@@ -66,8 +65,8 @@
                                     <!-- <button type="button" class="btn btn-secondary" routerLink="/edit"><i
                                             class="far fa-edit"></i></button> -->
                                     <!-- Edit button -->
-                                    <button type="button" class="btn btn-secondary activateInput"><i
-                                            class="far fa-edit" id="editButton" (click)="update()"></i></button>
+                                    <button type="button" class="btn btn-secondary activateInput"><i class="far fa-edit"
+                                            id="editButton"></i></button>
                                     <!-- Delete button -->
                                     <button type="button" class="btn btn-danger" (click)="delete(product.id)"
                                         *ngIf="product.id"><i class="far fa-trash-alt"></i></button>
@@ -90,54 +89,8 @@
     </div>
 
     <!-- Add Product Form -->
-    <div class="modal fade" id="addProductForm" tabindex="-1">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <button type="button" class="close align-right" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-                <div class="modal-header">
-                    <h4 class="modal-title">Add a Product</h4>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="productName">Product Name</label>
-                            <input type="text" class="form-control" id="productName" placeholder="Product Name">
-                        </div>
-                        <div class="form-group">
-                            <label for="productCategory">Product Category</label>
-                            <select class="form-control" id="productCategory">
-                                <!-- populate options with categories -->
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="productSupplier">Product Supplier</label>
-                            <input type="text" class="form-control" id="productSupplier" placeholder="Supplier">
-                        </div>
-                        <div class="form-group">
-                            <label for="productPrice">Price</label>
-                            <input type="number" id="productPrice">
-                        </div>
-                        <div class="form-group">
-                            <label for="productSalePrice">Sale Price</label>
-                            <input type="number" id="productSalePrice">
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox">Available
-                            </label>
-                        </div>
-                        <button type="submit" class="btn btn-success">Submit</button>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+    <app-add></app-add>
+    <!-- Sort Form -->
+    <app-sort></app-sort>
 
 </div>
