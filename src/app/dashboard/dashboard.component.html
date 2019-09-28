@@ -22,11 +22,74 @@
                 <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
             </button>
 
+            <!-- Search by Id -->
+            <form>
+                <input placeholder="Find by product id">&nbsp;
+                <button type="button" value="getId">Search</button>
+            </form>
+            <p></p>
             <!-- Alerts -->
             <div class="alert alert-primary" id="alertColor"><span id="alertText">Status message...</span></div>
 
-            <!-- Product Table -->
-            <div class="table-responsive">
+            <!-- Angular Materials Table with MatSort and MatPagination -->
+            <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                    <td mat-cell *matCellDef="let product"> {{product.id}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="productName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                    <td mat-cell *matCellDef="let product"> {{product.productName}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="fullPrice">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Full Price ($) </th>
+                    <td mat-cell *matCellDef="let product"> {{product.fullPrice}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="salePrice">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Sale Price ($) </th>
+                    <td mat-cell *matCellDef="let product"> {{product.salePrice}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="discountPercent">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Discount (%) </th>
+                    <td mat-cell *matCellDef="let product"> {{product.discountPercent}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="supplier">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Supplier </th>
+                    <td mat-cell *matCellDef="let product"> {{product.supplier}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="category">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Category </th>
+                    <td mat-cell *matCellDef="let product"> {{product.category}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="availability">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                    <td mat-cell *matCellDef="let product"> {{product.availability}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef> Edit/Delete </th>
+                    <td mat-cell *matCellDef="let product">
+                        <button mat-raised-button class="btn btn-secondary activateInput"><i class="far fa-edit"
+                                id="editButton"></i></button>&nbsp;
+                        <button mat-raised-button class="btn btn-danger" (click)="delete(product.id)"><i
+                                class="far fa-trash-alt"></i></button>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+
+
+            <!-- ngFor table -->
+            <!-- <div class="table-responsive">
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
@@ -42,32 +105,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- For-loop the table data rows-->
                         <tr *ngFor="let product of products">
                             <td>{{ product.id }}</td>
-                            <td><input id="fields" value="{{ product.productName }}" disabled></td>
-                            <td><input style="width: 100px" value="{{ product.fullPrice }}" disabled></td>
-                            <td><input style="width: 100px" value="{{ product.salePrice }}" disabled></td>
+                            <td>{{ product.productName }}</td>
+                            <td>{{ product.fullPrice }}</td>
+                            <td>{{ product.salePrice }}</td>
                             <td>{{ product.discountPercent }}</td>
-                            <td><input value="{{ product.supplier }}" disabled></td>
-                            <td>
-                                <select name="category" style="width: 100px" disabled>
-                                    <option value="{{ product.category }}">{{ product.category }}</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select name="availability" style="width: 120px" disabled>
-                                    <option value="{{ product.availability }}">{{ product.availability }}</option>
-                                </select>
-                            </td>
+                            <td>{{ product.supplier }}</td>
+                            <td>{{ product.category }}</td>
+                            <td>{{ product.availability }}</td>
                             <td class="text-right" id="tableDataBtns">
                                 <div class="btn-group" role="group">
-                                    <!-- <button type="button" class="btn btn-secondary" routerLink="/edit"><i
-                                            class="far fa-edit"></i></button> -->
-                                    <!-- Edit button -->
+                                    <button type="button" class="btn btn-secondary" routerLink="/edit"><i
+                                            class="far fa-edit"></i></button>
                                     <button type="button" class="btn btn-secondary activateInput"><i class="far fa-edit"
                                             id="editButton"></i></button>
-                                    <!-- Delete button -->
                                     <button type="button" class="btn btn-danger" (click)="delete(product.id)"
                                         *ngIf="product.id"><i class="far fa-trash-alt"></i></button>
                                 </div>
@@ -86,11 +138,11 @@
                 </ul>
             </nav>
         </div>
-    </div>
+    </div> -->
 
-    <!-- Add Product Form -->
-    <app-add></app-add>
-    <!-- Sort Form -->
-    <app-sort></app-sort>
+            <!-- Add Product Form -->
+            <app-add></app-add>
+            <!-- Sort Form -->
+            <app-sort></app-sort>
 
-</div>
+        </div>

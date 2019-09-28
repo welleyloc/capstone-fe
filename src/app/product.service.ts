@@ -12,7 +12,7 @@ export class ProductService {
   private API: string;
   private PRODUCTS_API: string;
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient) {
     this.API = 'http://localhost:8080';
     this.PRODUCTS_API = this.API + '/dashboard';
   }
@@ -25,18 +25,11 @@ export class ProductService {
     return this.http.get(this.API + "/" + id);
   }
 
-  // public save(product: any): Observable<Product[]> {
-  //   let result: Observable<any>;
-  //   if(product.id) {
-  //     result = this.http.put(product.id, product);
-  //   } else {
-  //     result = this.http.post(this.PRODUCTS_API, product);
-  //   }
-  // }
-
-  public update() {
-
+  public create(product: Product) {
+    return this.http.post<Product>(this.API + "/createProduct", product);
   }
+
+  public update() { }
 
   public delete(id: number) {
     return this.http.delete(this.API + "/" + id);

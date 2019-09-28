@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProductService } from '../product.service';
 import { Product } from '../product';
 import { Router, ActivatedRoute } from '@angular/router';
-import { CounterComponent } from '../counter/counter.component';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -18,16 +20,25 @@ export class DashboardComponent implements OnInit {
   alertText: HTMLElement;
   alertColor: any;
   mySubscription: any;
+  dataSource = new MatTableDataSource(this.products);
+  displayedColumns = ['id', 'productName', 'fullPrice', 'salePrice', 'discountPercent', 'supplier', 'category', 'availability', 'actions'];
 
-  constructor(private productService: ProductService,
-    // private activatedRouter: ActivatedRoute,
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+
+
+  constructor(
+    private productService: ProductService,
+    private activatedRouter: ActivatedRoute,
     private router: Router,
-  ) { }
+  ) {
+      this.productService.findAll().subscribe(data => {
+      this.products = data;
+      this.dataSource.data = this.products;
+    });
+  }
 
   ngOnInit() {
-    this.productService.findAll().subscribe(data => {
-      this.products = data;
-    })
+    this.dataSource.sort = this.sort;
   }
 
 
@@ -39,14 +50,19 @@ export class DashboardComponent implements OnInit {
   //   console.log('click!')
   // }
 
-  delete(id: number) {
+  public get(id: number) {
+    this.productService.get(id).subscribe(result =>
+      alert(this.productService.get(id)))
+  }
 
-    // filters the Product array with id for the object element
+  public delete(id: number) {
+
+    // filters the Product array by id for the object element
     var product = this.products.filter(function (product) {
       return product.id === id;
     })
 
-    // stringify the deleted object
+    // stringify the deleted object for alerts
     let productString = JSON.stringify(product, null, 4);
 
     // alert to confirm deletion
@@ -54,7 +70,10 @@ export class DashboardComponent implements OnInit {
 
     // deletes and repopulates the table
     this.productService.delete(id).subscribe(result => {
-      this.productService.findAll();
+      this.productService.findAll().subscribe(data => {
+        this.products = data;
+        this.dataSource.data = this.products;
+      })
 
       console.log("Product deleted.");
 
@@ -64,7 +83,7 @@ export class DashboardComponent implements OnInit {
       this.alertColor = document.getElementById('alertColor');
       this.alertColor.classList.add('alert-danger');
 
-      // Need this section again for counter component to automatically update.
+      // Need this section again for counter component to automatically update (counter is kept for development conveniences)
       this.productService.findAll().subscribe(data => {
         this.products = data;
         this.productCount = JSON.stringify(this.products.length);

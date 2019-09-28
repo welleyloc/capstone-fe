@@ -12,7 +12,6 @@ export class CategoriesComponent implements OnInit {
   categories: Category[];
   categoryCount: string;
   categorySize: HTMLElement;
-
   
   constructor(private categoryService: CategoryService) { }
 
@@ -25,6 +24,7 @@ export class CategoriesComponent implements OnInit {
       // category counter for subheading
       this.categorySize = document.getElementById('categorySize');
       this.categorySize.innerHTML = this.categoryCount;
+
     })
   }
 
