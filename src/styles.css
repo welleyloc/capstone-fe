@@ -37,5 +37,66 @@
 }
 
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body { 
+    height: 100%; }
+body { 
+    margin: 0; 
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;   
+}
+
+.mat-sort-header-arrow {
+    color: #fff !important;
+    opacity: 1 !important;
+    }
+
+td.mat-cell {
+    font-size: 15px;
+    padding: 10px !important;
+    border-bottom: 1px solid #0275d8;
+
+}
+
+th.mat-header-cell {
+    width: 300px;
+    font-size: 15px;
+    color: white;
+    background-color: #0275d8; 
+}
+
+th.headerProductname {
+    width: 400px;
+    font-size: 15px;
+}
+
+
+th.headerProductId {
+    width: 150px;
+    font-size: 15px;
+}
+
+th.headerActions {
+    width: 200px;
+    font-size: 15px;
+}
+
+.mat-elevation-z8 {
+    box-shadow: none;
+    border: 1px solid #0275d8;
+}
+
+.mat-row:nth-child(even){
+    background-color: #e6f3ff;
+    }
+
+.mat-row:nth-child(odd){
+    background-color:white;
+    }
+
+.paginatorStyle {
+    font-size: 16px;
+}
+
+.mat-select-value-text {
+    font-size: 16px;
+    color: rgb(117, 117, 117);
+}

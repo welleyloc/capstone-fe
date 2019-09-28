@@ -20,11 +20,6 @@ export class CategoriesComponent implements OnInit {
       this.categories = data;
 
       this.categoryCount = JSON.stringify(this.categories.length);
-
-      // category counter for subheading
-      this.categorySize = document.getElementById('categorySize');
-      this.categorySize.innerHTML = this.categoryCount;
-
     })
   }
 

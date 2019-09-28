@@ -4,10 +4,6 @@
             <div class="row">
                 <div class="col">
                     <h2 class="page-header">{{ headerTitle }}</h2>
-                    <!-- Product counter -->
-                    <h3 class="sub-header">{{ sectionTitle }} <app-counter></app-counter>
-                    </h3>
-
                     <br><br>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addProductForm">Add
                         Product</button>&nbsp;
@@ -29,63 +25,64 @@
             </form>
             <p></p>
             <!-- Alerts -->
-            <div class="alert alert-primary" id="alertColor"><span id="alertText">Status message...</span></div>
+            <div class="alert" id="alertColor"><span id="alertText"></span></div>
 
             <!-- Angular Materials Table with MatSort and MatPagination -->
-            <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+                <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" showFirstLastButtons class="paginatorStyle"></mat-paginator>
+                <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
-                <ng-container matColumnDef="id">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-                    <td mat-cell *matCellDef="let product"> {{product.id}} </td>
-                </ng-container>
+                    <ng-container matColumnDef="id">
+                        <th mat-header-cell mat-sort-header *matHeaderCellDef class="headerProductId"> ID </th>
+                        <td mat-cell *matCellDef="let product"> {{product.id}} </td>
+                    </ng-container>
 
-                <ng-container matColumnDef="productName">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-                    <td mat-cell *matCellDef="let product"> {{product.productName}} </td>
-                </ng-container>
+                    <ng-container matColumnDef="productName">
+                        <th mat-header-cell mat-sort-header *matHeaderCellDef class="headerProductname"> Name </th>
+                        <td mat-cell *matCellDef="let product"> {{product.productName}} </td>
+                    </ng-container>
 
-                <ng-container matColumnDef="fullPrice">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Full Price ($) </th>
-                    <td mat-cell *matCellDef="let product"> {{product.fullPrice}} </td>
-                </ng-container>
+                    <ng-container matColumnDef="fullPrice">
+                        <th mat-header-cell mat-sort-header *matHeaderCellDef> Full Price ($) </th>
+                        <td mat-cell *matCellDef="let product"> {{product.fullPrice}} </td>
+                    </ng-container>
 
-                <ng-container matColumnDef="salePrice">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Sale Price ($) </th>
-                    <td mat-cell *matCellDef="let product"> {{product.salePrice}} </td>
-                </ng-container>
+                    <ng-container matColumnDef="salePrice">
+                        <th mat-header-cell mat-sort-header *matHeaderCellDef> Sale Price ($) </th>
+                        <td mat-cell *matCellDef="let product"> {{product.salePrice}} </td>
+                    </ng-container>
 
-                <ng-container matColumnDef="discountPercent">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Discount (%) </th>
-                    <td mat-cell *matCellDef="let product"> {{product.discountPercent}} </td>
-                </ng-container>
+                    <ng-container matColumnDef="discountPercent">
+                        <th mat-header-cell mat-sort-header *matHeaderCellDef> Discount (%) </th>
+                        <td mat-cell *matCellDef="let product"> {{product.discountPercent}} </td>
+                    </ng-container>
 
-                <ng-container matColumnDef="supplier">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Supplier </th>
-                    <td mat-cell *matCellDef="let product"> {{product.supplier}} </td>
-                </ng-container>
+                    <ng-container matColumnDef="supplier">
+                        <th mat-header-cell mat-sort-header *matHeaderCellDef> Supplier </th>
+                        <td mat-cell *matCellDef="let product"> {{product.supplier}} </td>
+                    </ng-container>
 
-                <ng-container matColumnDef="category">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Category </th>
-                    <td mat-cell *matCellDef="let product"> {{product.category}} </td>
-                </ng-container>
+                    <ng-container matColumnDef="category">
+                        <th mat-header-cell mat-sort-header *matHeaderCellDef> Category </th>
+                        <td mat-cell *matCellDef="let product"> {{product.category}} </td>
+                    </ng-container>
 
-                <ng-container matColumnDef="availability">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
-                    <td mat-cell *matCellDef="let product"> {{product.availability}} </td>
-                </ng-container>
+                    <ng-container matColumnDef="availability">
+                        <th mat-header-cell mat-sort-header *matHeaderCellDef> Status </th>
+                        <td mat-cell *matCellDef="let product"> {{product.availability}} </td>
+                    </ng-container>
 
-                <ng-container matColumnDef="actions">
-                    <th mat-header-cell *matHeaderCellDef> Edit/Delete </th>
-                    <td mat-cell *matCellDef="let product">
-                        <button mat-raised-button class="btn btn-secondary activateInput"><i class="far fa-edit"
-                                id="editButton"></i></button>&nbsp;
-                        <button mat-raised-button class="btn btn-danger" (click)="delete(product.id)"><i
-                                class="far fa-trash-alt"></i></button>
-                    </td>
-                </ng-container>
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
+                    <ng-container matColumnDef="actions">
+                        <th mat-header-cell *matHeaderCellDef class="headerActions"> Edit/Delete </th>
+                        <td mat-cell *matCellDef="let product">
+                            <button mat-raised-button class="btn btn-secondary activateInput"><i class="far fa-edit"
+                                    id="editButton"></i></button>&nbsp;
+                            <button mat-raised-button class="btn btn-danger" (click)="delete(product.id)"><i
+                                    class="far fa-trash-alt"></i></button>
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
 
 
             <!-- ngFor table -->

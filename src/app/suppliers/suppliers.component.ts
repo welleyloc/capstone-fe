@@ -20,10 +20,6 @@ export class SuppliersComponent implements OnInit {
       this.suppliers = data;
 
       this.supplierCount = JSON.stringify(this.suppliers.length);
-
-      // category counter for subheading
-      this.supplierSize = document.getElementById('supplierSize');
-      this.supplierSize.innerHTML = this.supplierCount;
     })
   }
 

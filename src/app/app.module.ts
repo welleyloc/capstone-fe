@@ -8,7 +8,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { GoogleChartModule } from './google-chart/google-chart.module';
 import { HttpClientModule } from '@angular/common/http';
 import { EditComponent } from './edit/edit.component';
-import { CounterComponent } from './counter/counter.component';
 import { SortComponent } from './sort/sort.component';
 import { AddComponent } from './add/add.component';
 import { SuppliersComponent } from './suppliers/suppliers.component';
@@ -23,7 +22,6 @@ import { MatTableModule, MatPaginatorModule, MatInputModule, MatFormFieldModule,
     AppComponent,
     DashboardComponent,
     EditComponent,
-    CounterComponent,
     SortComponent,
     AddComponent,
     SuppliersComponent,

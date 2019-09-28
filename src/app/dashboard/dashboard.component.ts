@@ -4,6 +4,7 @@ import { Product } from '../product';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material';
 
 
 @Component({
@@ -24,6 +25,8 @@ export class DashboardComponent implements OnInit {
   displayedColumns = ['id', 'productName', 'fullPrice', 'salePrice', 'discountPercent', 'supplier', 'category', 'availability', 'actions'];
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+
 
 
   constructor(
@@ -39,6 +42,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 
 
@@ -82,14 +86,6 @@ export class DashboardComponent implements OnInit {
       this.alertText.innerHTML = "Successfully deleted " + productString + " from the database.";
       this.alertColor = document.getElementById('alertColor');
       this.alertColor.classList.add('alert-danger');
-
-      // Need this section again for counter component to automatically update (counter is kept for development conveniences)
-      this.productService.findAll().subscribe(data => {
-        this.products = data;
-        this.productCount = JSON.stringify(this.products.length);
-        this.listSizeText = document.getElementById('listSize');
-        this.listSizeText.innerHTML = this.productCount;
-      })
     },
 
       error => {
@@ -97,7 +93,7 @@ export class DashboardComponent implements OnInit {
 
         // error alert box message
         this.alertText = document.getElementById('alertText');
-        this.alertText.innerHTML = "Error: Product cannot be deleted. Please check console for error message.";
+        this.alertText.innerHTML = "Error: Product cannot be deleted.";
         this.alertColor = document.getElementById('alertColor');
         this.alertColor.classList.add('alert-dark');
       });

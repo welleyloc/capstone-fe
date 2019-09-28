@@ -19,6 +19,8 @@ export class AddComponent implements OnInit {
   product: Product;
   categories: Category[];
   suppliers: Supplier[];
+  alertText: HTMLElement;
+  alertColor: any;
 
   constructor(private productService: ProductService,
     private categoryService: CategoryService,
@@ -44,8 +46,16 @@ export class AddComponent implements OnInit {
 }
 
   onSubmit() {
-    this.productService.create(this.product).subscribe(result => this.productService.findAll());
-    console.log("Product created: " + JSON.stringify(this.product));
+    this.productService.create(this.product).subscribe(result => {
+
+      // alert box status message for 'deleted'
+      this.alertText = document.getElementById('alertText');
+      this.alertText.innerHTML = "Successfully added " + JSON.stringify(this.product) + " to the database.";
+      this.alertColor = document.getElementById('alertColor');
+      this.alertColor.classList.add('alert-success');
+
+    });
+    console.log("Product added: " + JSON.stringify(this.product));
   }
 
   // goToDashboard() {
