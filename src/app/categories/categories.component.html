@@ -1,22 +1,27 @@
-<div class="container-fluid" style="margin-top: 20px; margin-left: 75px;">
-        <h2 class="page-header">{{ headerTitle }}</h2>
-        <p></p>
-<div class="table-responsive" style="width: 500px">
-        <table class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Category</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- For-loop the table data rows-->
-                <tr *ngFor="let category of categories">
-                    <td>{{ category.categoryId }}</td>
-                    <td>{{ category.categoryName }}</td>
-                   
-                </tr>
-            </tbody>
-        </table>
-    </div>
+<div class="row dash">
+    <table mat-table [dataSource]="categoryDataSource" matSort class="mat-elevation-z8">
+        <ng-container matColumnDef="categoryId">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef class="headerCategoryId"> Cat. ID </th>
+            <td mat-cell *matCellDef="let category" class="text-align-center"> {{category.categoryId}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="categoryName">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef class="headerCategoryName"> Category </th>
+            <td mat-cell *matCellDef="let category"> {{category.categoryName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef class="headerActions"> Edit/Delete </th>
+            <td mat-cell *matCellDef="let category" class="text-align-right">
+                <button mat-raised-button class="btn btn-secondary activateInput"><i class="far fa-edit"
+                        id="editButton"></i></button>&nbsp;
+                <button mat-raised-button class="btn btn-danger" (click)="deleteCategory(category.categoryId)">
+                    <i class="far fa-trash-alt"></i></button>
+            </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20, 50, 100]" showFirstLastButtons class="paginatorStyle">
+    </mat-paginator>
 </div>

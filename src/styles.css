@@ -1,31 +1,32 @@
 @import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
 
-.main {
-    padding: 20px;
-}
 
-@media (min-width: 768px) {
-    .main {
-        padding-right: 40px;
-        padding-left: 40px;
-    }
+table {
+    width: 100%;
 }
-
 .main .page-header {
     margin-top: 0;
 }
 
 .alert-group {
-    margin-top: 20px;
+   margin-top: 20px;
 }
 
 .container-fluid {
-    width: 95%;
+    width: 100%;
 }
 
 .align-right {
     display: flex;
     justify-content: flex-end;
+}
+
+.text-align-center {
+    text-align: center !important;
+}
+
+.text-align-right {
+    text-align: right !important;
 }
 
 .modal-content {
@@ -41,11 +42,12 @@ html, body {
     height: 100%; }
 body { 
     margin: 0; 
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;   
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background-color: rgb(241, 241, 241);   
 }
 
 .mat-sort-header-arrow {
-    color: #fff !important;
+    color: white !important;
     opacity: 1 !important;
     }
 
@@ -57,26 +59,30 @@ td.mat-cell {
 }
 
 th.mat-header-cell {
-    width: 300px;
     font-size: 15px;
     color: white;
     background-color: #0275d8; 
 }
 
-th.headerProductname {
-    width: 400px;
+th.headerProductId {
+    width: 110px;
     font-size: 15px;
 }
 
+th.headerCategoryId {
+    width: 110px;
+    font-size: 15px;
+}
 
-th.headerProductId {
-    width: 150px;
+th.headerSupplierId {
+    width: 110px;
     font-size: 15px;
 }
 
 th.headerActions {
-    width: 200px;
+    width: 150px;
     font-size: 15px;
+    text-align: right !important;
 }
 
 .mat-elevation-z8 {
@@ -99,4 +105,57 @@ th.headerActions {
 .mat-select-value-text {
     font-size: 16px;
     color: rgb(117, 117, 117);
+}
+
+.dashboard-container {
+    border: 1px solid lightgrey;
+    padding: 30px;
+    background-color: white;
+    border-radius: 5px;
+    margin: 0;
+    width: 100%;
+}
+
+.main {
+        padding-right: 40px;
+        padding-left: 40px;
+    }
+
+    .row.dash {
+        margin: 10px 0 10px 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .col.left {
+        margin: 0 5px 0 0;
+    }
+
+    .col.right {
+        margin: 0 0 0 5px;
+    }
+
+
+
+/* mobile */
+
+@media (max-width: 768px) {
+
+    .row.dash {
+        margin: 10px 0 10px 0;
+        width: auto;
+        display: flex;
+        justify-content: center;
+    }
+
+    .col.left {
+        margin: 5px 0 5px 0;
+    }
+
+    .col.right {
+        margin: 5px 0 5px 0;
+    }
+
+
 }

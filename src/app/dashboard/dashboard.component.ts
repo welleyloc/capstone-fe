@@ -2,10 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProductService } from '../product.service';
 import { Product } from '../product';
 import { Router, ActivatedRoute } from '@angular/router';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
-import { MatPaginator } from '@angular/material';
-
 
 @Component({
   selector: 'app-dashboard',
@@ -20,29 +16,15 @@ export class DashboardComponent implements OnInit {
   listSizeText: HTMLElement;
   alertText: HTMLElement;
   alertColor: any;
-  mySubscription: any;
-  dataSource = new MatTableDataSource(this.products);
-  displayedColumns = ['id', 'productName', 'fullPrice', 'salePrice', 'discountPercent', 'supplier', 'category', 'availability', 'actions'];
-
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-
-
 
   constructor(
     private productService: ProductService,
     private activatedRouter: ActivatedRoute,
     private router: Router,
   ) {
-      this.productService.findAll().subscribe(data => {
-      this.products = data;
-      this.dataSource.data = this.products;
-    });
   }
 
   ngOnInit() {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
   }
 
 
@@ -58,50 +40,6 @@ export class DashboardComponent implements OnInit {
     this.productService.get(id).subscribe(result =>
       alert(this.productService.get(id)))
   }
-
-  public delete(id: number) {
-
-    // filters the Product array by id for the object element
-    var product = this.products.filter(function (product) {
-      return product.id === id;
-    })
-
-    // stringify the deleted object for alerts
-    let productString = JSON.stringify(product, null, 4);
-
-    // alert to confirm deletion
-    alert("Confirm deletion of: " + "\n" + productString);
-
-    // deletes and repopulates the table
-    this.productService.delete(id).subscribe(result => {
-      this.productService.findAll().subscribe(data => {
-        this.products = data;
-        this.dataSource.data = this.products;
-      })
-
-      console.log("Product deleted.");
-
-      // alert box status message for 'deleted'
-      this.alertText = document.getElementById('alertText');
-      this.alertText.innerHTML = "Successfully deleted " + productString + " from the database.";
-      this.alertColor = document.getElementById('alertColor');
-      this.alertColor.classList.add('alert-danger');
-    },
-
-      error => {
-        console.error("Product delete function error\n" + error);
-
-        // error alert box message
-        this.alertText = document.getElementById('alertText');
-        this.alertText.innerHTML = "Error: Product cannot be deleted.";
-        this.alertColor = document.getElementById('alertColor');
-        this.alertColor.classList.add('alert-dark');
-      });
-
-  }
-
-  headerTitle = 'Product Dashboard';
-  sectionTitle = 'Total products:';
 
 
 }

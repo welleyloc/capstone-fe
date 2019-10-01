@@ -1,145 +1,38 @@
-<div class="container-fluid">
-    <div class="row">
-        <div class="main">
-            <div class="row">
-                <div class="col">
-                    <h2 class="page-header">{{ headerTitle }}</h2>
-                    <br><br>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addProductForm">Add
-                        Product</button>&nbsp;
-                    <button type="button" class="btn btn-warning" data-toggle="modal"
-                        data-target="#sortProductsForm">Sort Products</button>
-                </div>
-                <div class="col">
-                    <app-pie-chart></app-pie-chart>
-                </div>
-            </div>
-            <button type="button" class="btn btn-default">
-                <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
-            </button>
+<div class="main">
 
-            <!-- Search by Id -->
-            <form>
-                <input placeholder="Find by product id">&nbsp;
-                <button type="button" value="getId">Search</button>
-            </form>
-            <p></p>
-            <!-- Alerts -->
-            <div class="alert" id="alertColor"><span id="alertText"></span></div>
-
-            <!-- Angular Materials Table with MatSort and MatPagination -->
-                <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" showFirstLastButtons class="paginatorStyle"></mat-paginator>
-                <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-
-                    <ng-container matColumnDef="id">
-                        <th mat-header-cell mat-sort-header *matHeaderCellDef class="headerProductId"> ID </th>
-                        <td mat-cell *matCellDef="let product"> {{product.id}} </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="productName">
-                        <th mat-header-cell mat-sort-header *matHeaderCellDef class="headerProductname"> Name </th>
-                        <td mat-cell *matCellDef="let product"> {{product.productName}} </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="fullPrice">
-                        <th mat-header-cell mat-sort-header *matHeaderCellDef> Full Price ($) </th>
-                        <td mat-cell *matCellDef="let product"> {{product.fullPrice}} </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="salePrice">
-                        <th mat-header-cell mat-sort-header *matHeaderCellDef> Sale Price ($) </th>
-                        <td mat-cell *matCellDef="let product"> {{product.salePrice}} </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="discountPercent">
-                        <th mat-header-cell mat-sort-header *matHeaderCellDef> Discount (%) </th>
-                        <td mat-cell *matCellDef="let product"> {{product.discountPercent}} </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="supplier">
-                        <th mat-header-cell mat-sort-header *matHeaderCellDef> Supplier </th>
-                        <td mat-cell *matCellDef="let product"> {{product.supplier}} </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="category">
-                        <th mat-header-cell mat-sort-header *matHeaderCellDef> Category </th>
-                        <td mat-cell *matCellDef="let product"> {{product.category}} </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="availability">
-                        <th mat-header-cell mat-sort-header *matHeaderCellDef> Status </th>
-                        <td mat-cell *matCellDef="let product"> {{product.availability}} </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="actions">
-                        <th mat-header-cell *matHeaderCellDef class="headerActions"> Edit/Delete </th>
-                        <td mat-cell *matCellDef="let product">
-                            <button mat-raised-button class="btn btn-secondary activateInput"><i class="far fa-edit"
-                                    id="editButton"></i></button>&nbsp;
-                            <button mat-raised-button class="btn btn-danger" (click)="delete(product.id)"><i
-                                    class="far fa-trash-alt"></i></button>
-                        </td>
-                    </ng-container>
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                </table>
-
-
-            <!-- ngFor table -->
-            <!-- <div class="table-responsive">
-                <table class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Product</th>
-                            <th>Full Price ($)</th>
-                            <th>Sale Price ($)</th>
-                            <th>Discount (%)</th>
-                            <th>Supplier</th>
-                            <th>Category</th>
-                            <th>Status</th>
-                            <th>Edit/Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let product of products">
-                            <td>{{ product.id }}</td>
-                            <td>{{ product.productName }}</td>
-                            <td>{{ product.fullPrice }}</td>
-                            <td>{{ product.salePrice }}</td>
-                            <td>{{ product.discountPercent }}</td>
-                            <td>{{ product.supplier }}</td>
-                            <td>{{ product.category }}</td>
-                            <td>{{ product.availability }}</td>
-                            <td class="text-right" id="tableDataBtns">
-                                <div class="btn-group" role="group">
-                                    <button type="button" class="btn btn-secondary" routerLink="/edit"><i
-                                            class="far fa-edit"></i></button>
-                                    <button type="button" class="btn btn-secondary activateInput"><i class="far fa-edit"
-                                            id="editButton"></i></button>
-                                    <button type="button" class="btn btn-danger" (click)="delete(product.id)"
-                                        *ngIf="product.id"><i class="far fa-trash-alt"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <nav aria-label="Table Navigation">
-                <ul class="pagination">
-                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                </ul>
-            </nav>
+    <!-- Pie Chart -->
+    <div class="row dash">
+        <div class="col left dashboard-container">
+            <app-pie-chart></app-pie-chart>
         </div>
-    </div> -->
-
-            <!-- Add Product Form -->
-            <app-add></app-add>
-            <!-- Sort Form -->
-            <app-sort></app-sort>
-
+        <div class="col right dashboard-container">
+            <app-pie-chart></app-pie-chart>
         </div>
+    </div>
+
+
+    <!-- Products List -->
+    <div class="dashboard-container">
+        <app-products></app-products>
+    </div>
+
+    <!-- Categories and Suppliers List -->
+    <div class="row dash">
+        <div class="col left dashboard-container">
+            <app-categories></app-categories>
+        </div>
+        <div class="col right dashboard-container">
+            <app-suppliers></app-suppliers>
+        </div>
+    </div>
+
+    <!-- Add Product Form -->
+    <app-add></app-add>
+
+    <!-- Sort Form -->
+    <app-sort></app-sort>
+
+    <!-- Edit Product Form -->
+    <app-edit></app-edit>
+
+</div>

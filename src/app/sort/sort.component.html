@@ -8,35 +8,20 @@
             </div>
             <div class="modal-body">
                 <form>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="productCategory">Product Category</label>
                         <select class="form-control" id="productCategory">
                             <option *ngFor="let category of categories">{{ category.value }}</option>
                         </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="productSupplier">Product Supplier</label>
-                        <select class="form-control" id="productSupplier">
-                            <option *ngFor="let supplier of suppliers">{{ supplier.value }}</option>
-                        </select>
-                    </div>
+                    </div> -->
 
-                    <div class="form-group">
-                            <label for="productCategory">Product Category</label>
-                            <select class="form-control" id="productCategory">
-                                <option *ngFor="let category of categories">{{ category.value }}</option>
-                            </select>
-                        </div>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox"> in stock
+                            <input type="checkbox"> in stock only
                         </label>
                     </div>
                     <button type="submit" class="btn btn-success">Submit</button>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

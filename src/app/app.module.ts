@@ -12,9 +12,11 @@ import { SortComponent } from './sort/sort.component';
 import { AddComponent } from './add/add.component';
 import { SuppliersComponent } from './suppliers/suppliers.component';
 import { CategoriesComponent } from './categories/categories.component';
-import { CommonModule, CurrencyPipe } from '@angular/common';
+import { CommonModule, CurrencyPipe, DecimalPipe } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule, MatPaginatorModule, MatInputModule, MatFormFieldModule, MatSortModule } from '@angular/material';
+import { ProductsComponent } from './products/products.component';
+import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -26,6 +28,7 @@ import { MatTableModule, MatPaginatorModule, MatInputModule, MatFormFieldModule,
     AddComponent,
     SuppliersComponent,
     CategoriesComponent,
+    ProductsComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,9 +43,10 @@ import { MatTableModule, MatPaginatorModule, MatInputModule, MatFormFieldModule,
     MatPaginatorModule, 
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    NgbAlertModule
   ],
-  providers: [CurrencyPipe],
+  providers: [DecimalPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

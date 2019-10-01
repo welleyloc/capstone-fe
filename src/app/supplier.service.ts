@@ -19,4 +19,8 @@ export class SupplierService {
   public findAll(): Observable<Supplier[]> {
     return this.http.get<Supplier[]>(this.SUPPLIERS_API);
   }
+
+  public delete(supplierId: number) {
+    return this.http.delete(this.API + "/supplier/" + supplierId);
+  }
 }

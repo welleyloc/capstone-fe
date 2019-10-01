@@ -19,4 +19,9 @@ export class CategoryService {
   public findAll(): Observable<Category[]> {
     return this.http.get<Category[]>(this.CATEGORIES_API);
   }
+
+  public delete(categoryId: number) {
+    return this.http.delete(this.API + "/category/" + categoryId);
+  }
+
 }

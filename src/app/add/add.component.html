@@ -1,15 +1,15 @@
 <div class="modal fade" id="addProductForm" tabindex="-1">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <button type="button" class="close align-right" data-dismiss="modal" aria-label="Close"
-                (click)="warning()"><span aria-hidden="true">&times;</span></button>
+            <button type="button" class="close align-right" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
             <div class="modal-header">
                 <h4 class="modal-title">Add a Product</h4>
             </div>
 
             <div class="modal-body">
                 <!-- Create product form starts here -->
-                <form (ngSubmit)="onSubmit()" #createProductForm="ngForm">
+                <form (ngSubmit)="onSubmit()" #createProductForm="ngForm" autocomplete="off">
 
                     <!-- Product Name -->
                     <div class="form-group">
@@ -27,8 +27,10 @@
                             <option *ngFor="let category of categories" value="{{ category.categoryId }}">
                                 {{ category.categoryName}}</option>
                         </select>
+                        <br>
+                        <!-- If other category <input type="text" id="categoryInput" disabled>
                         <div [hidden]="categoryInput.valid || categoryInput.pristine" class="alert alert-danger">Category
-                            name is required</div>
+                            name is required</div> -->
                     </div>
                     <!-- Supplier -->
                     <div class="form-group">
@@ -37,25 +39,22 @@
                             name="supplier" #supplierInput="ngModel" required>
                             <option *ngFor="let supplier of suppliers" value="{{ supplier.supplierId }}">
                                 {{ supplier.supplierName }}</option>
-                        </select><br>
-                        If other supplier <input type="text" id="productPrice" disabled>
+                        </select>
                     </div>
-
                     <!-- Full Price -->
                     <div class="form-group">
                         <label for="productFullPrice">Full Price $</label>&nbsp;
-                        <input type="text" (blur)="currencyFullPrice($event)" [(ngModel)]="product.fullPrice" id="fullPrice" name="fullPrice"
-                            #fullPriceInput="ngModel" step="0.01" required>
+                        <input type="text" (blur)="currencyFullPrice($event)" [(ngModel)]="product.fullPrice"
+                            id="fullPrice" name="fullPrice" #fullPriceInput="ngModel" step="0.01" required>
                         <div [hidden]="fullPriceInput.valid || fullPriceInput.pristine" class="alert alert-danger">Full
                             price is required</div>
-
                     </div>
 
                     <!-- Sale Price -->
                     <div class="form-group">
                         <label for="productSalePrice">Sale Price $</label>&nbsp;
-                        <input type="text" (blur)="currencySalePrice($event)" [(ngModel)]="product.salePrice" id="salePrice" name="salePrice"
-                            #salePriceInput="ngModel" step="0.01" required>
+                        <input type="text" (blur)="currencySalePrice($event)" [(ngModel)]="product.salePrice"
+                            id="salePrice" name="salePrice" #salePriceInput="ngModel" step="0.01" required>
                         <div [hidden]="salePriceInput.valid || salePriceInput.pristine" class="alert alert-danger">Sale
                             price is required</div>
                     </div>
@@ -72,9 +71,9 @@
                     <br>
                     <div class="checkbox">
                         <label for="productAvailability">Is the product available?</label><br>
-                        <input type="checkbox" [(ngModel)]="product.availability"
-                                id="availability" name="availability" #availabilityBox="ngModel" [checked]="true">&nbsp;&nbsp;<label>Yes</label>
-                        
+                        <input type="checkbox" [(ngModel)]="product.availability" id="availability" name="availability"
+                            #availabilityBox="ngModel" [checked]="true">&nbsp;&nbsp;<label>Yes</label>
+
                     </div>
                     <br>
                     <!-- Submit -->
