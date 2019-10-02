@@ -9,7 +9,7 @@
 
             <div class="modal-body">
                 <!-- Create product form starts here -->
-                <form (ngSubmit)="onSubmit()" #createProductForm="ngForm" autocomplete="off">
+                <form (ngSubmit)="createProduct()" #createProductForm="ngForm" autocomplete="off">
 
                     <!-- Product Name -->
                     <div class="form-group">
@@ -28,9 +28,6 @@
                                 {{ category.categoryName}}</option>
                         </select>
                         <br>
-                        <!-- If other category <input type="text" id="categoryInput" disabled>
-                        <div [hidden]="categoryInput.valid || categoryInput.pristine" class="alert alert-danger">Category
-                            name is required</div> -->
                     </div>
                     <!-- Supplier -->
                     <div class="form-group">
@@ -58,17 +55,9 @@
                         <div [hidden]="salePriceInput.valid || salePriceInput.pristine" class="alert alert-danger">Sale
                             price is required</div>
                     </div>
-
-                    <!-- Availability -->
-                    <!-- <div class="form-group">
-                        <label for="availability">Availability</label>
-                        <select type="number" [(ngModel)]="product.availability" class="form-control" id="availability"
-                            name="availability" #supplierInput="ngModel" required>
-                            <option value="1">in stock</option>
-                            <option value="0">out of stock</option>
-                        </select>
-                    </div> -->
+                    
                     <br>
+                    <!-- Availability -->
                     <div class="checkbox">
                         <label for="productAvailability">Is the product available?</label><br>
                         <input type="checkbox" [(ngModel)]="product.availability" id="availability" name="availability"

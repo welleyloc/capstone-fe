@@ -16,7 +16,10 @@ import { CommonModule, DecimalPipe} from '@angular/common';
 })
 export class AddComponent implements OnInit {
 
+  products: Product[];
   product: Product;
+  category: Category;
+  supplier: Supplier;
   categories: Category[];
   suppliers: Supplier[];
   alertText: HTMLElement;
@@ -29,9 +32,22 @@ export class AddComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
   ) {
-    this.product = new Product()
+    this.product = new Product();
   }
 
+  ngOnInit() {
+    this.categoryService.findAll().subscribe(categoryData => {
+      this.categories = categoryData;
+    })
+
+    this.supplierService.findAll().subscribe(supplierData => {
+      this.suppliers = supplierData;
+    })
+
+    this.productService.findAll().subscribe(productData => {
+      this.products = productData;
+    })
+  }
 
   currencyFullPrice(element){
       this.product.fullPrice = (this.decimalPipe.transform(this.product.fullPrice, '1.2-2')).replace(/,/g, "");
@@ -45,26 +61,13 @@ export class AddComponent implements OnInit {
   
 }
 
-  onSubmit() {
+  createProduct() {
+
     this.productService.create(this.product, this.product.category, this.product.supplier).subscribe(result => {
-
-      // alert box status message for 'deleted'
-      this.alertText = document.getElementById('alertText');
-      this.alertText.innerHTML = "Successfully added " + JSON.stringify(this.product) + " to the database.";
-
+      console.log("Product added: " + JSON.stringify(this.product));
     });
-    console.log("Product added: " + JSON.stringify(this.product));
   }
 
-  ngOnInit() {
-    this.categoryService.findAll().subscribe(data => {
-      this.categories = data;
-      // this.categories.push({ categoryId: 999, categoryName: 'Other' });
-    })
 
-    this.supplierService.findAll().subscribe(data => {
-      this.suppliers = data;
-    })
-  }
 
 }
