@@ -1,21 +1,14 @@
 <div class="row">
-    <div class="col-md-2">
-        <!-- Add product button -->
-        <button type="button" data-toggle="modal" class="btn btn-success" data-target="#addProductForm"><i
-                class="fas fa-plus" style="font-size: 33px; width: 55px"></i></button>&nbsp;
-        <button type="button" data-toggle="modal" class="btn btn-warning" data-target="#sortProductsForm"><i
-                class="fas fa-sliders-h" style="color: white; font-size: 33px; width: 55px"></i></button>&nbsp;
-        
-        <!-- Sort products button -->
-        <!-- <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#sortProductsForm">Sort
-            Products</button>&nbsp;-->
+    <div class="col-md-3 flex-vertical-bottom">
+        <span style="font-size: 30px">Products</span>
     </div>
-    <div class="col-md-10">
-        <!-- Alerts -->
-        <ngb-alert type="primary" [dismissible]="false"><span id="alertText">Products Database</span></ngb-alert>
+    <div class="col-md-9 align-right">
+        <!-- Add product button -->
+        <button type="button" class="btn btn-success" (click)="openProdAdd()"><i class="fas fa-plus"
+                style="font-size: 33px; width: 55px"></i></button>
     </div>
 </div>
-
+<br>
 <!-- Angular Materials Table with MatSort and MatPagination -->
 <div>
     <table mat-table [dataSource]="productDataSource" matSort class="mat-elevation-z8">
@@ -67,7 +60,8 @@
 
                 <!-- Edit Button -->
                 <button mat-raised-button class="btn btn-secondary activateInput" data-toggle="modal"
-                    data-target="#updateProductForm"><i class="far fa-edit"></i></button>&nbsp;
+                    data-backdrop="static" data-target="#updateProductForm" (click)="updateProduct(product)"><i
+                        class="far fa-edit"></i></button>&nbsp;
 
                 <!-- Delete Button -->
                 <button mat-raised-button class="btn btn-danger" (click)="deleteProduct(product.id)"><i
@@ -81,8 +75,76 @@
     </mat-paginator>
 </div>
 
-<!-- Add Product Form -->
-<app-add></app-add>
+<div class="modal fade" id="updateProductForm" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Update Product</h4>
+            </div>
 
-<!-- Update Product Form -->
-<app-update></app-update>
+            <div class="modal-body">
+                <!-- Old product inputs start here -->
+                <form (ngSubmit)="submitUpdate()" [formGroup]="updateProductForm" autocomplete="off">
+
+                    <!-- Product Name -->
+                    <div class="form-group">
+                        <label for="productName">Product Name</label>
+                        <input type="text" class="form-control" id="productName" name="productName"
+                            formControlName="productName">
+                    </div>
+
+                    <!-- Category -->
+                    <div class="form-group">
+                        <label for="productCategory">Product Category</label>
+                        <select type="number" class="form-control" id="category" name="category"
+                            formControlName="productCategory">
+                            <option *ngFor="let category of categories" value="{{ category.categoryId }}">
+                                {{ category.categoryName }}</option>
+                        </select>
+                    </div>
+
+                    <!-- Supplier -->
+                    <div class="form-group">
+                        <label for="productSupplier">Product Supplier</label>
+                        <select type="number" class="form-control" id="supplier" name="supplier"
+                            formControlName="productSupplier">
+                            <option *ngFor="let supplier of suppliers" value="{{ supplier.supplierId }}">
+                                {{ supplier.supplierName }}</option>
+                        </select>
+                    </div>
+
+                    <!-- Full Price -->
+                    <div class="form-group">
+                        <label for="productFullPrice">Full Price $</label>&nbsp;
+                        <input type="text" (blur)="updatedFullPrice($event)" id="fullPrice" name="fullPrice" step="0.01"
+                            formControlName="fullPrice">
+                    </div>
+
+                    <!-- Sale Price -->
+                    <div class="form-group">
+                        <label for="productSalePrice">Sale Price $</label>&nbsp;
+                        <input type="text" (blur)="updatedSalePrice($event)" id="salePrice" name="salePrice" step="0.01"
+                            formControlName="salePrice">
+                    </div>
+
+                    <!-- Availability -->
+                    <div class="checkbox">
+                        <label for="productAvailability">Is the product available?</label><br>
+                        <input type="checkbox" id="availability" name="availability" formControlName="availability"
+                            [checked]="true">&nbsp;&nbsp;<label>Yes</label>
+                    </div>
+                    <br>
+
+                    <div class="flex-space-evenly">
+                        <!-- Buttons -->
+                        <button type="submit" class="btn popup btn-success">Update</button>
+                        <button type="button" (click)="updateProduct(product)"
+                            class="btn popup btn-primary">Reset</button>
+                            <button type="button" data-dismiss="modal" class="btn popup btn-warning">Cancel</button>
+                    </div>
+                </form>
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

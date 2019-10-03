@@ -1,14 +1,14 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Product } from '../product';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { ProductService } from '../product.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Category } from '../category';
 import { Supplier } from '../supplier';
 import { DecimalPipe } from '@angular/common';
 import { CategoryService } from '../category.service';
 import { SupplierService } from '../supplier.service';
+import { FormBuilder } from '@angular/forms';
+import { DelDialogueService } from '../del-dialogue.service';
 
 @Component({
   selector: 'app-products',
@@ -23,9 +23,17 @@ export class ProductsComponent implements OnInit {
   category: Category;
   suppliers: Supplier[];
   supplier: Supplier;
+  formProduct: Product;
 
-  alertText: HTMLElement;
-  mySubscription: any;
+  updateProductForm = this.formBuilder.group({
+    productName: [''],
+    productCategory: null,
+    productSupplier: null,
+    fullPrice: [''],
+    salePrice: [''],
+    availability: null
+  })
+
   productDataSource = new MatTableDataSource(this.products);
   displayedColumns = ['id', 'productName', 'fullPrice', 'salePrice', 'discountPercent', 'supplier', 'category', 'availability', 'actions'];
 
@@ -36,16 +44,14 @@ export class ProductsComponent implements OnInit {
     private productService: ProductService,
     private categoryService: CategoryService,
     private supplierService: SupplierService,
-    private activatedRouter: ActivatedRoute,
-    private router: Router,
+    private delDialogueService: DelDialogueService,
     private decimalPipe: DecimalPipe,
+    private formBuilder: FormBuilder
   ) {
-    this.productService.findAll().subscribe(data => {
-      this.products = data;
+    this.productService.findAll().subscribe(productData => {
+      this.products = productData;
       this.productDataSource.data = this.products;
     });
-
-    this.product = new Product();
   }
 
   ngOnInit() {
@@ -69,45 +75,78 @@ export class ProductsComponent implements OnInit {
   currencySalePrice(element) {
     this.product.salePrice = (this.decimalPipe.transform(this.product.salePrice, '1.2-2')).replace(/,/g, "");
     element.target.value = this.product.salePrice;
+  }
 
+  openProdAdd() {
+    this.delDialogueService.openProductAdd().afterClosed().subscribe(add => {
+      if(add) {
+        console.log("Product added!")
+      }
+    });
   }
 
   deleteProduct(id: number) {
-
-    // filters the Product array by id for the object element
-    var product = this.products.filter(function (product) {
+    var deletedProduct = this.products.filter(function (product) {
       return product.id === id;
     })
 
-    // stringify the deleted object for alerts
-    let productString = JSON.stringify(product, null, 4);
-
-    // alert to confirm deletion
-    confirm("Confirm deletion of: " + "\n" + productString);
-
-    // deletes and repopulates the table
-    this.productService.delete(id).subscribe(result => {
-      this.productService.findAll().subscribe(data => {
-        this.products = data;
-        this.productDataSource.data = this.products;
-      })
-
-      console.log("Product deleted.");
-
-      // alert box status message for 'deleted'
-      this.alertText = document.getElementById('alertText');
-      this.alertText.innerHTML = "Deleted " + productString;
-      this.alertText.style.color = 'red';
-    },
-
-      error => {
-        console.error("Product delete function error\n" + error);
-
-        // error alert box message
-        this.alertText = document.getElementById('alertText');
-        this.alertText.innerHTML = "Error: Product cannot be deleted.";
-        this.alertText.style.color = 'red';
-      });
+    this.delDialogueService.openConfirm(JSON.stringify(deletedProduct, null, 4)).afterClosed().subscribe(remove => {
+      if (remove) {
+        this.productService.delete(id).subscribe(result => {
+          this.refreshData();
+        })
+      }
+    })
   }
 
+  updateProduct(formProduct: Product) {
+    this.product = formProduct;
+    this.updateProductForm.patchValue({
+      productName: formProduct.productName,
+      productCategory: formProduct.category.categoryId,
+      productSupplier: formProduct.supplier.supplierId,
+      fullPrice: formProduct.fullPrice,
+      salePrice: formProduct.salePrice,
+      availability: formProduct.availability
+    })
+  }
+
+  updatedFullPrice(element) {
+    this.updateProductForm.value.fullPrice = (this.decimalPipe.transform(this.updateProductForm.value.fullPrice, '1.2-2')).replace(/,/g, "");
+    element.target.value = this.updateProductForm.value.fullPrice;
+  }
+
+  updatedSalePrice(element) {
+    this.updateProductForm.value.salePrice = (this.decimalPipe.transform(this.updateProductForm.value.salePrice, '1.2-2')).replace(/,/g, "");
+    element.target.value = this.updateProductForm.value.salePrice;
+  }
+
+  submitUpdate() {
+    this.product.productName = this.updateProductForm.value.productName
+    this.product.category.categoryId = this.updateProductForm.value.productCategory;
+    this.product.supplier.supplierId = this.updateProductForm.value.productSupplier;
+    this.product.fullPrice = this.updateProductForm.value.fullPrice;
+    this.product.salePrice = this.updateProductForm.value.salePrice;
+    this.product.availability = this.updateProductForm.value.availability;
+
+    this.productService.update(this.product, this.product.id, this.product.category.categoryId, this.product.supplier.supplierId).subscribe(result => {
+      console.log("Product updated!")
+      this.refreshData();
+    })
+  }
+
+  refreshData() {
+    this.productService.findAll().subscribe(productData => {
+      this.products = productData;
+      this.productDataSource.data = this.products;
+    });
+
+    this.categoryService.findAll().subscribe(categoryData => {
+      this.categories = categoryData;
+    })
+
+    this.supplierService.findAll().subscribe(supplierData => {
+      this.suppliers = supplierData;
+    })
+  }
 }

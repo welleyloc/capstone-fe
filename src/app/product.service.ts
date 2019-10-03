@@ -12,7 +12,6 @@ import { Supplier } from './supplier';
 export class ProductService {
 
   private API: string;
-  private PRODUCTS_API: string;
 
   constructor(private http: HttpClient) {
     this.API = 'http://localhost:8080';
@@ -30,8 +29,8 @@ export class ProductService {
     return this.http.post<Product>(`${this.API}/createProduct/${categoryId}/${supplierId}`, product);
   }
 
-  update(product: Product, categoryId: number, supplierId: number) { 
-    return this.http.put<Product>(`${this.API}/updateProduct/${categoryId}/${supplierId}`, product);
+  update(product: Product, id: number, categoryId: number, supplierId: number) { 
+    return this.http.put<Product>(`${this.API}/updateProduct/${id}/${categoryId}/${supplierId}`, product);
   }
 
   delete(id: number) {

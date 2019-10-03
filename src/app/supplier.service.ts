@@ -16,11 +16,11 @@ export class SupplierService {
     this.SUPPLIERS_API = this.API + '/getSuppliers';
   }
 
-  public findAll(): Observable<Supplier[]> {
+  findAll(): Observable<Supplier[]> {
     return this.http.get<Supplier[]>(this.SUPPLIERS_API);
   }
 
-  public delete(supplierId: number) {
+  delete(supplierId: number) {
     return this.http.delete(this.API + "/supplier/" + supplierId);
   }
 }

@@ -29,8 +29,18 @@ table {
     text-align: right !important;
 }
 
+.flex-space-evenly {
+    display:flex;
+    justify-content: space-evenly;
+}
+
+.flex-vertical-bottom {
+    display: flex;
+    align-items: flex-end;
+}
+
 .modal-content {
-    padding: 10px;
+    padding: 20px 15px 10px 15px;
 }
 
 .close {
@@ -44,6 +54,10 @@ body {
     margin: 0; 
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     background-color: rgb(241, 241, 241);   
+}
+
+.btn.popup {
+    width: 100px;
 }
 
 .mat-sort-header-arrow {

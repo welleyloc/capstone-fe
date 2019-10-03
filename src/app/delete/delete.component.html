@@ -1,0 +1,11 @@
+<div class="modal-header">
+    <h4 class="modal-title">Delete Product</h4>
+</div>
+<div class="modal-body">
+    <label>{{ data.message }}</label>
+</div>
+<div class="flex-space-evenly">
+    <!-- Buttons -->
+    <button class="btn popup btn-primary" [mat-dialog-close]="false">Cancel</button>
+    <button class="btn popup btn-danger" [mat-dialog-close]="true">Delete</button>
+</div>

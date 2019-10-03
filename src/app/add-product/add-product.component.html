@@ -1,0 +1,69 @@
+<div class="modal-header">
+    <h4 class="modal-title">Create Product</h4>
+</div>
+<div class="modal-body">
+    <!-- Create product form starts here -->
+    <form (ngSubmit)="createProduct(product, category, supplier)" #createProductForm="ngForm" autocomplete="off">
+
+        <!-- Product Name -->
+        <div class="form-group">
+            <label for="productName">Product Name</label>
+            <input type="text" [(ngModel)]="product.productName" class="form-control" id="productName"
+                name="productName" #productNameInput="ngModel" required>
+            <div [hidden]="productNameInput.valid || productNameInput.pristine" class="alert alert-danger">
+                Product name is required</div>
+        </div>
+        <!-- Category -->
+        <div class="form-group">
+            <label for="productCategory">Product Category</label>
+            <select type="number" [(ngModel)]="product.category" class="form-control" id="category" name="category"
+                #categoryInput="ngModel" required>
+                <option *ngFor="let category of categories" value="{{ category.categoryId }}">
+                    {{ category.categoryName}}</option>
+            </select>
+            <br>
+        </div>
+        <!-- Supplier -->
+        <div class="form-group">
+            <label for="productSupplier">Product Supplier</label>
+            <select type="number" [(ngModel)]="product.supplier" class="form-control" id="supplier" name="supplier"
+                #supplierInput="ngModel" required>
+                <option *ngFor="let supplier of suppliers" value="{{ supplier.supplierId }}">
+                    {{ supplier.supplierName }}</option>
+            </select>
+        </div>
+        <!-- Full Price -->
+        <div class="form-group">
+            <label for="productFullPrice">Full Price $</label>&nbsp;
+            <input type="text" (blur)="currencyFullPrice($event)" [(ngModel)]="product.fullPrice" id="fullPrice"
+                name="fullPrice" #fullPriceInput="ngModel" step="0.01" required>
+            <div [hidden]="fullPriceInput.valid || fullPriceInput.pristine" class="alert alert-danger">Full
+                price is required</div>
+        </div>
+
+        <!-- Sale Price -->
+        <div class="form-group">
+            <label for="productSalePrice">Sale Price $</label>&nbsp;
+            <input type="text" (blur)="currencySalePrice($event)" [(ngModel)]="product.salePrice" id="salePrice"
+                name="salePrice" #salePriceInput="ngModel" step="0.01" required>
+            <div [hidden]="salePriceInput.valid || salePriceInput.pristine" class="alert alert-danger">Sale
+                price is required</div>
+        </div>
+
+        <br>
+        <!-- Availability -->
+        <div class="checkbox">
+            <label for="productAvailability">Is the product available?</label><br>
+            <input type="checkbox" [(ngModel)]="product.availability" id="availability" name="availability"
+                #availabilityBox="ngModel" [checked]="true">&nbsp;&nbsp;<label>Yes</label>
+        </div>
+        <br>
+        <div class="flex-space-evenly">
+            <!-- Buttons -->
+            <button [disabled]="!createProductForm.form.valid" type="submit" class="btn popup btn-success"
+                [mat-dialog-close]="true">Add</button>
+            <button class="btn popup btn-danger" [mat-dialog-close]="false">Cancel</button>
+
+        </div>
+    </form>
+</div>

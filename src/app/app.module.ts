@@ -8,15 +8,15 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { GoogleChartModule } from './google-chart/google-chart.module';
 import { HttpClientModule } from '@angular/common/http';
 import { SortComponent } from './sort/sort.component';
-import { AddComponent } from './add/add.component';
 import { SuppliersComponent } from './suppliers/suppliers.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { CommonModule, DecimalPipe } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatTableModule, MatPaginatorModule, MatInputModule, MatFormFieldModule, MatSortModule } from '@angular/material';
+import { MatTableModule, MatPaginatorModule, MatInputModule, MatFormFieldModule, MatSortModule, MatDialogModule } from '@angular/material';
 import { ProductsComponent } from './products/products.component';
-import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
-import { UpdateComponent } from './update/update.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DeleteComponent } from './delete/delete.component';
+import { AddProductComponent } from './add-product/add-product.component';
 
 
 @NgModule({
@@ -24,11 +24,11 @@ import { UpdateComponent } from './update/update.component';
     AppComponent,
     DashboardComponent,
     SortComponent,
-    AddComponent,
     SuppliersComponent,
     CategoriesComponent,
     ProductsComponent,
-    UpdateComponent,
+    DeleteComponent,
+    AddProductComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,10 +44,16 @@ import { UpdateComponent } from './update/update.component';
     MatPaginatorModule, 
     MatTableModule,
     MatSortModule,
-    NgbAlertModule,
+    NgbModule,
+    MatDialogModule
   
   ],
   providers: [DecimalPipe],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    DeleteComponent, 
+    AddProductComponent,
+
+  ]
 })
 export class AppModule { }
