@@ -79,7 +79,7 @@ export class ProductsComponent implements OnInit {
 
   openProdAdd() {
     this.delDialogueService.openProductAdd().afterClosed().subscribe(add => {
-      if(add) {
+      if (add) {
         console.log("Product added!")
       }
     });
@@ -90,10 +90,10 @@ export class ProductsComponent implements OnInit {
       return product.id === id;
     })
 
-    this.delDialogueService.openConfirm(JSON.stringify(deletedProduct, null, 4)).afterClosed().subscribe(remove => {
+    this.delDialogueService.openConfirm(JSON.stringify(deletedProduct, null, 1)).afterClosed().subscribe(remove => {
       if (remove) {
         this.productService.delete(id).subscribe(result => {
-          this.refreshData();
+          location.reload();
         })
       }
     })
@@ -122,7 +122,7 @@ export class ProductsComponent implements OnInit {
   }
 
   submitUpdate() {
-    this.product.productName = this.updateProductForm.value.productName
+    this.product.productName = this.updateProductForm.value.productName;
     this.product.category.categoryId = this.updateProductForm.value.productCategory;
     this.product.supplier.supplierId = this.updateProductForm.value.productSupplier;
     this.product.fullPrice = this.updateProductForm.value.fullPrice;
@@ -131,22 +131,7 @@ export class ProductsComponent implements OnInit {
 
     this.productService.update(this.product, this.product.id, this.product.category.categoryId, this.product.supplier.supplierId).subscribe(result => {
       console.log("Product updated!")
-      this.refreshData();
-    })
-  }
-
-  refreshData() {
-    this.productService.findAll().subscribe(productData => {
-      this.products = productData;
-      this.productDataSource.data = this.products;
-    });
-
-    this.categoryService.findAll().subscribe(categoryData => {
-      this.categories = categoryData;
-    })
-
-    this.supplierService.findAll().subscribe(supplierData => {
-      this.suppliers = supplierData;
+      location.reload();
     })
   }
 }

@@ -16,6 +16,8 @@ export class DeleteComponent implements OnInit {
   ngOnInit() {
   }
 
+  header = "Delete Confirmation"
+
   // Close button
   // cancel() {
   //   this.dialog.close();

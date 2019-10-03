@@ -17,6 +17,8 @@ import { ProductsComponent } from './products/products.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DeleteComponent } from './delete/delete.component';
 import { AddProductComponent } from './add-product/add-product.component';
+import { AddCategoryComponent } from './add-category/add-category.component';
+import { AddSupplierComponent } from './add-supplier/add-supplier.component';
 
 
 @NgModule({
@@ -29,6 +31,8 @@ import { AddProductComponent } from './add-product/add-product.component';
     ProductsComponent,
     DeleteComponent,
     AddProductComponent,
+    AddCategoryComponent,
+    AddSupplierComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,7 +57,8 @@ import { AddProductComponent } from './add-product/add-product.component';
   entryComponents: [
     DeleteComponent, 
     AddProductComponent,
-
+    AddCategoryComponent,
+    AddSupplierComponent
   ]
 })
 export class AppModule { }

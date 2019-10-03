@@ -1,0 +1,25 @@
+<div class="modal-header">
+        <h4 class="modal-title">Create Category</h4>
+    </div>
+    <div class="modal-body">
+        <!-- Create category form starts here -->
+        <form (ngSubmit)="createCategory(category)" #createCategoryForm="ngForm" autocomplete="off">
+    
+            <!-- Category Name -->
+            <div class="form-group">
+                <label for="categoryName">Category Name</label>
+                <input type="text" [(ngModel)]="category.categoryName" class="form-control" id="categoryName"
+                    name="categoryName" #categoryNameInput="ngModel" required>
+                <div [hidden]="categoryNameInput.valid || categoryNameInput.pristine" class="alert alert-danger">
+                    Field cannot be empty.</div>
+            </div>
+    
+            <div class="flex-space-evenly">
+                <!-- Buttons -->
+                <button [disabled]="!createCategoryForm.form.valid" type="submit" class="btn popup btn-success"
+                    [mat-dialog-close]="true">Add</button>
+                <button class="btn popup btn-danger" [mat-dialog-close]="false">Cancel</button>
+    
+            </div>
+        </form>
+    </div>

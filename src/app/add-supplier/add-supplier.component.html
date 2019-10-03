@@ -1,0 +1,25 @@
+<div class="modal-header">
+    <h4 class="modal-title">Create Supplier</h4>
+</div>
+<div class="modal-body">
+    <!-- Create supplier form starts here -->
+    <form (ngSubmit)="createSupplier(supplier)" #createSupplierForm="ngForm" autocomplete="off">
+
+        <!-- Supplier Name -->
+        <div class="form-group">
+            <label for="supplierName">Supplier Name</label>
+            <input type="text" [(ngModel)]="supplier.supplierName" class="form-control" id="supplierName"
+                name="supplierName" #supplierNameInput="ngModel" required>
+            <div [hidden]="supplierNameInput.valid || supplierNameInput.pristine" class="alert alert-danger">
+                Field cannot be empty.</div>
+        </div>
+
+        <div class="flex-space-evenly">
+            <!-- Buttons -->
+            <button [disabled]="!createSupplierForm.form.valid" type="submit" class="btn popup btn-success"
+                [mat-dialog-close]="true">Add</button>
+            <button class="btn popup btn-danger" [mat-dialog-close]="false">Cancel</button>
+
+        </div>
+    </form>
+</div>

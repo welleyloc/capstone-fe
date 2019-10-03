@@ -9,18 +9,24 @@ import { Supplier } from './supplier';
 export class SupplierService {
 
   private API: string;
-  private SUPPLIERS_API: string;
 
   constructor(private http: HttpClient) {
     this.API = 'http://localhost:8080';
-    this.SUPPLIERS_API = this.API + '/getSuppliers';
   }
 
   findAll(): Observable<Supplier[]> {
-    return this.http.get<Supplier[]>(this.SUPPLIERS_API);
+    return this.http.get<Supplier[]>(`${this.API}/getSuppliers`);
+  }
+
+  create(supplier: Supplier) {
+    return this.http.post<Supplier>(`${this.API}/createSupplier`, supplier);
+  }
+
+  update(supplier: Supplier, supplierId: number) { 
+    return this.http.put<Supplier>(`${this.API}/updateSupplier/${supplierId}`, supplier);
   }
 
   delete(supplierId: number) {
-    return this.http.delete(this.API + "/supplier/" + supplierId);
+    return this.http.delete(`${this.API}/supplier/${supplierId}`);
   }
 }

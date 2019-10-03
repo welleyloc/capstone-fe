@@ -17,15 +17,16 @@ export class AddProductComponent implements OnInit {
 
   products: Product[];
   product: Product;
-  category: Category;
-  supplier: Supplier;
   categories: Category[];
+  category: Category;
   suppliers: Supplier[];
+  supplier: Supplier;
   categoryId: number;
   supplierId: number;
 
 
-  constructor(private productService: ProductService,
+  constructor(
+    private productService: ProductService,
     private categoryService: CategoryService,
     private supplierService: SupplierService,
     private decimalPipe: DecimalPipe,
