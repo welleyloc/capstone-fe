@@ -34,6 +34,11 @@ table {
     justify-content: space-evenly;
 }
 
+.flex-space-between {
+    display:flex;
+    justify-content: space-between;
+}
+
 .flex-vertical-bottom {
     display: flex;
     align-items: flex-end;
@@ -42,6 +47,11 @@ table {
 .modal-content {
     padding: 20px 15px 10px 15px;
 }
+
+.mat-form-field {
+    font-size: 18px;
+    width: 500px;
+  }
 
 .close {
     font-size: 40px;
@@ -98,7 +108,7 @@ th.headerSupplierId {
 }
 
 th.headerActions {
-    width: 150px;
+    width: 120px;
     font-size: 15px;
     text-align: right !important;
 }

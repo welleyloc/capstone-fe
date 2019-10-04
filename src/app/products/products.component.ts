@@ -67,6 +67,10 @@ export class ProductsComponent implements OnInit {
     })
   }
 
+  applyProductFilter(filterValue: string) {
+    this.productDataSource.filter = filterValue.trim().toLowerCase();
+  }
+
   currencyFullPrice(element) {
     this.product.fullPrice = (this.decimalPipe.transform(this.product.fullPrice, '1.2-2')).replace(/,/g, "");
     element.target.value = this.product.fullPrice;

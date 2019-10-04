@@ -52,6 +52,10 @@ export class SuppliersComponent implements OnInit {
     this.supplierDataSource.paginator = this.paginator;
   }
 
+  applySupplierFilter(filterValue: string) {
+    this.supplierDataSource.filter = filterValue.trim().toLowerCase();
+  }
+
   openSupAdd() {
     this.delDialogueService.openSupAdd().afterClosed().subscribe(add => {
       if (add) {

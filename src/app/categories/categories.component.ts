@@ -67,6 +67,10 @@ export class CategoriesComponent implements OnInit {
     this.cPDataSourceOUT.data = falseList;
   }
 
+  applyCategoryFilter(filterValue: string) {
+    this.categoryDataSource.filter = filterValue.trim().toLowerCase();
+  }
+
   openCatAdd() {
     this.delDialogueService.openCatAdd().afterClosed().subscribe(add => {
       if (add) {
