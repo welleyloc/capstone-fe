@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/product';
 import { GoogleChartService } from '../service/google-chart.service';
 import { ProductService } from 'src/app/product.service';
+import { CategoryService } from '../../category.service';
+import { SupplierService } from '../../supplier.service';
+import { Supplier } from 'src/app/supplier';
+import { Category } from 'src/app/category';
 
 @Component({
   selector: 'app-scatter-chart',
@@ -13,10 +17,14 @@ export class ScatterChartComponent implements OnInit {
   private gLib: any;
   product: Product;
   products: Product[];
+  suppliers: Supplier[];
+  categories: Category[];
 
   constructor(
     private gChartService: GoogleChartService,
     private productService: ProductService,
+    private categoryService: CategoryService,
+    private supplierService: SupplierService
   ) {
     this.gLib = this.gChartService.getGoogle();
     this.gLib.charts.load('current', {'packages':['corechart']});
@@ -39,8 +47,8 @@ export class ScatterChartComponent implements OnInit {
     var options = {
       title: 'Full vs. Sale Price comparison',
       height: 350,
-      hAxis: {title: 'Full Price', minValue: 0, maxValue: 150},
-      vAxis: {title: 'Sale', minValue: 0, maxValue: 150},
+      hAxis: {title: 'Full Price', minValue: 0, maxValue: 100},
+      vAxis: {title: 'Sale', minValue: 0, maxValue: 100},
       legend: 'none'
     };
 
@@ -52,6 +60,12 @@ export class ScatterChartComponent implements OnInit {
   ngOnInit() {
     this.productService.findAll().subscribe(productData => {
       this.products = productData;
+    })
+    this.supplierService.findAll().subscribe(supplierData => {
+      this.suppliers = supplierData;
+    })
+    this.categoryService.findAll().subscribe(categoryData => {
+      this.categories = categoryData;
     })
   }
 

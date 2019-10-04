@@ -4,6 +4,8 @@ import { Product } from 'src/app/product';
 import { Category } from 'src/app/category';
 import { ProductService } from 'src/app/product.service';
 import { CategoryService } from '../../category.service';
+import { SupplierService } from '../../supplier.service';
+import { Supplier } from 'src/app/supplier';
 
 @Component({
   selector: 'app-pie-chart',
@@ -16,11 +18,13 @@ export class PieChartComponent implements OnInit {
   private gLib: any;
   products: Product[];
   categories: Category[];
+  suppliers: Supplier[];
 
   constructor(
     private gChartService: GoogleChartService,
     private productService: ProductService,
     private categoryService: CategoryService,
+    private supplierService: SupplierService,
     ) { 
     this.gLib = this.gChartService.getGoogle();
     this.gLib.charts.load('current', {'packages':['corechart','table']});
@@ -53,7 +57,9 @@ export class PieChartComponent implements OnInit {
     this.productService.findAll().subscribe(productData => {
       this.products = productData;
     })
-
+    this.supplierService.findAll().subscribe(supplierData => {
+      this.suppliers = supplierData;
+    })
     this.categoryService.findAll().subscribe(categoryData => {
       this.categories = categoryData;
     })
