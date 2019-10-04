@@ -1,7 +1,12 @@
-<div class="row button">
-    <!-- Add category button -->
-    <button type="button" data-toggle="modal" class="btn btn-success" (click)="openCatAdd()"><i
-            class="fas fa-plus" style="font-size: 33px; width: 55px"></i></button>
+<div class="row">
+    <div class="col-md-3 flex-vertical-bottom">
+        <span style="font-size: 30px">Categories</span>
+    </div>
+    <div class="col-md-9 align-right">
+        <!-- Add category button -->
+        <button type="button" data-toggle="modal" class="btn btn-success" (click)="openCatAdd()"><i class="fas fa-plus"
+                style="font-size: 33px; width: 55px"></i></button>
+    </div>
 </div>
 
 <div class="row dash">
@@ -16,12 +21,26 @@
             <td mat-cell *matCellDef="let category"> {{category.categoryName}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="actions">
+        <ng-container matColumnDef="actions1">
+                <th mat-header-cell *matHeaderCellDef class="text-align-right"> Products IN/OUT </th>
+                <td mat-cell *matCellDef="let category" class="text-align-right">
+    
+                    <button mat-raised-button class="btn btn-success activateInput" data-toggle="modal"
+                        data-backdrop="static" data-target="#cPList" (click)="getList(category)"><i
+                            class="fas fa-dolly-flatbed" id="editButton"></i></button>&nbsp;
+        
+                        <button mat-raised-button class="btn btn-secondary activateInput" data-toggle="modal"
+                            data-backdrop="static" data-target="#cPListOUT" (click)="getList(category)"><i
+                                class="fas fa-dolly-flatbed" id="editButton"></i></button>&nbsp;
+                    </td>
+                </ng-container>
+
+        <ng-container matColumnDef="actions2">
             <th mat-header-cell *matHeaderCellDef class="headerActions" data-target="updateCategoryForm"> Edit/Delete
             </th>
             <td mat-cell *matCellDef="let category" class="text-align-right">
 
-                <button mat-raised-button class="btn btn-secondary activateInput" data-toggle="modal"
+                <button mat-raised-button class="btn btn-primary activateInput" data-toggle="modal"
                     data-backdrop="static" data-target="#updateCategoryForm" (click)="updateCategory(category)"><i
                         class="far fa-edit" id="editButton"></i></button>&nbsp;
 
@@ -68,3 +87,98 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+
+<!-- Category-Product List IN STOCK -->
+<div class="modal fade" id="cPList" tabindex="-1">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="text-align-right padding-10">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button></div>
+                <div class="modal-header">
+                    <h4 class="modal-title">Products by Category (in stock)</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row dash">
+                        <table mat-table [dataSource]="cPDataSource" matSort class="mat-elevation-z8">
+    
+                            <ng-container matColumnDef="id">
+                                <th mat-header-cell *matHeaderCellDef class="headerProductId"> Prod. ID
+                                </th>
+                                <td mat-cell *matCellDef="let product" class="text-align-center"> {{product.id}} </td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="productName">
+                                <th mat-header-cell *matHeaderCellDef class="headerProductname"> Product
+                                </th>
+                                <td mat-cell *matCellDef="let product"> {{product.productName}} </td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="availability">
+                                <th mat-header-cell *matHeaderCellDef> Stock </th>
+                                <td mat-cell *matCellDef="let product"><input type="checkbox"
+                                        [checked]="product.availability" onclick="return false"> </td>
+                            </ng-container>
+    
+                            <tr mat-header-row *matHeaderRowDef="cPDisplayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: cPDisplayedColumns;"></tr>
+                        </table>
+                        <br>
+    
+                    </div>
+                    <div class="flex-space-evenly">
+                        <!-- Buttons -->
+                        <button type="button" data-dismiss="modal" class="btn popup btn-dark">Close</button>
+                    </div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    
+    <!-- Category-Product List OUT-->
+    <div class="modal fade" id="cPListOUT" tabindex="-1">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="text-align-right padding-10">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button></div>
+                    <div class="modal-header">
+                        <h4 class="modal-title">Products by Category (out of stock)</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row dash">
+                            <table mat-table [dataSource]="cPDataSourceOUT" matSort class="mat-elevation-z8">
+        
+                                <ng-container matColumnDef="id">
+                                    <th mat-header-cell *matHeaderCellDef class="headerProductId"> Prod. ID
+                                    </th>
+                                    <td mat-cell *matCellDef="let product" class="text-align-center"> {{product.id}} </td>
+                                </ng-container>
+        
+                                <ng-container matColumnDef="productName">
+                                    <th mat-header-cell *matHeaderCellDef class="headerProductname"> Product
+                                    </th>
+                                    <td mat-cell *matCellDef="let product"> {{product.productName}} </td>
+                                </ng-container>
+        
+                                <ng-container matColumnDef="availability">
+                                    <th mat-header-cell *matHeaderCellDef> Stock </th>
+                                    <td mat-cell *matCellDef="let product"><input type="checkbox"
+                                            [checked]="product.availability" onclick="return false"> </td>
+                                </ng-container>
+        
+                                <tr mat-header-row *matHeaderRowDef="cPDisplayedColumnsOUT"></tr>
+                                <tr mat-row *matRowDef="let row; columns: cPDisplayedColumnsOUT;"></tr>
+                            </table>
+                            <br>
+        
+                        </div>
+                        <div class="flex-space-evenly">
+                            <!-- Buttons -->
+                            <button type="button" data-dismiss="modal" class="btn popup btn-dark">Close</button>
+                        </div>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->

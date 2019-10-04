@@ -4,6 +4,7 @@ import { Supplier } from '../supplier';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { DelDialogueService } from '../del-dialogue.service';
 import { FormBuilder } from '@angular/forms';
+import { Product } from '../product';
 
 @Component({
   selector: 'app-suppliers',
@@ -12,7 +13,9 @@ import { FormBuilder } from '@angular/forms';
 })
 export class SuppliersComponent implements OnInit {
 
+  product: Product[];
   suppliers: Supplier[];
+  pSuppliers: any;
   supplier: Supplier;
 
   updateSupplierForm = this.formBuilder.group({
@@ -20,10 +23,18 @@ export class SuppliersComponent implements OnInit {
   })
 
   supplierDataSource = new MatTableDataSource(this.suppliers);
-  displayedColumns = ['supplierId', 'supplierName', 'actions'];
+  displayedColumns = ['supplierId', 'supplierName', 'actions1', 'actions2'];
+
+  sPDataSource = new MatTableDataSource(this.pSuppliers);
+  pDisplayedColumns = ['id', 'productName', 'availability'];
+
+  sPDataSourceOUT = new MatTableDataSource(this.pSuppliers);
+  pDisplayedColumnsOUT = ['id', 'productName', 'availability'];
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatSort, { static: true }) sortB: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+
 
   constructor(
     private supplierService: SupplierService,
@@ -47,6 +58,25 @@ export class SuppliersComponent implements OnInit {
         console.log("Supplier added!")
       }
     })
+  }
+
+  getList(supplier: Supplier) {
+
+    var trueList = new Array();
+    var falseList = new Array();
+
+    var fullList = supplier.productList;
+
+    for (let product of fullList) {
+      if (product.availability) {
+        trueList.push(product);
+      }
+      else {
+        falseList.push(product);
+      }
+    }
+    this.sPDataSource.data = trueList;
+    this.sPDataSourceOUT.data = falseList;
   }
 
   updateSupplier(formSupplier: Supplier) {

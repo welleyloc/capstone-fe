@@ -14,13 +14,20 @@ export class CategoriesComponent implements OnInit {
 
   categories: Category[];
   category: Category;
+  pCategories: any;
 
   updateCategoryForm = this.formBuilder.group({
     categoryName: [''],
   })
 
   categoryDataSource = new MatTableDataSource(this.categories);
-  displayedColumns = ['categoryId', 'categoryName', 'actions'];
+  displayedColumns = ['categoryId', 'categoryName', 'actions1', 'actions2'];
+
+  cPDataSource = new MatTableDataSource(this.pCategories);
+  cPDisplayedColumns = ['id', 'productName', 'availability'];
+
+  cPDataSourceOUT = new MatTableDataSource(this.pCategories);
+  cPDisplayedColumnsOUT = ['id', 'productName', 'availability'];
   
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -39,6 +46,25 @@ export class CategoriesComponent implements OnInit {
   ngOnInit() {
     this.categoryDataSource.sort = this.sort;
     this.categoryDataSource.paginator = this.paginator;
+  }
+
+  getList(category: Category) {
+
+    var trueList = new Array();
+    var falseList = new Array();
+
+    var fullList = category.productList;
+
+    for (let product of fullList) {
+      if (product.availability) {
+        trueList.push(product);
+      }
+      else {
+        falseList.push(product);
+      }
+    }
+    this.cPDataSource.data = trueList;
+    this.cPDataSourceOUT.data = falseList;
   }
 
   openCatAdd() {

@@ -1,9 +1,15 @@
-<div class="row button">
-    <!-- Add supplier button -->
-    <button type="button" data-toggle="modal" class="btn btn-success" (click)="openSupAdd()"><i
-            class="fas fa-plus" style="font-size: 33px; width: 55px"></i></button>
+<div class="row">
+    <div class="col-md-3 flex-vertical-bottom">
+        <span style="font-size: 30px">Suppliers</span>
+    </div>
+    <div class="col-md-9 align-right">
+        <!-- Add supplier button -->
+        <button type="button" data-toggle="modal" class="btn btn-success" (click)="openSupAdd()"><i class="fas fa-plus"
+                style="font-size: 33px; width: 55px"></i></button>
+    </div>
 </div>
 
+<!-- Suppliers Table -->
 <div class="row dash">
     <table mat-table [dataSource]="supplierDataSource" matSort class="mat-elevation-z8">
         <ng-container matColumnDef="supplierId">
@@ -16,11 +22,25 @@
             <td mat-cell *matCellDef="let supplier"> {{supplier.supplierName}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="actions">
+        <ng-container matColumnDef="actions1">
+            <th mat-header-cell *matHeaderCellDef class="text-align-right"> Products IN/OUT </th>
+            <td mat-cell *matCellDef="let supplier" class="text-align-right">
+
+                <button mat-raised-button class="btn btn-success activateInput" data-toggle="modal"
+                    data-backdrop="static" data-target="#sPList" (click)="getList(supplier)"><i
+                        class="fas fa-dolly-flatbed" id="editButton"></i></button>&nbsp;
+    
+                    <button mat-raised-button class="btn btn-secondary activateInput" data-toggle="modal"
+                        data-backdrop="static" data-target="#sPListOUT" (click)="getList(supplier)"><i
+                            class="fas fa-dolly-flatbed" id="editButton"></i></button>&nbsp;
+                </td>
+            </ng-container>
+
+        <ng-container matColumnDef="actions2">
             <th mat-header-cell *matHeaderCellDef class="headerActions"> Edit/Delete </th>
             <td mat-cell *matCellDef="let supplier" class="text-align-right">
 
-                <button mat-raised-button class="btn btn-secondary activateInput" data-toggle="modal"
+                <button mat-raised-button class="btn btn-primary activateInput" data-toggle="modal"
                     data-backdrop="static" data-target="#updateSupplierForm" (click)="updateSupplier(supplier)"><i
                         class="far fa-edit" id="editButton"></i></button>&nbsp;
 
@@ -34,7 +54,6 @@
     <mat-paginator [pageSizeOptions]="[5, 10, 20, 50, 100]" showFirstLastButtons class="paginatorStyle">
     </mat-paginator>
 </div>
-
 
 <!-- Update Supplier Form -->
 <div class="modal fade" id="updateSupplierForm" tabindex="-1">
@@ -68,3 +87,98 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+
+<!-- Supplier-Product List IN STOCK -->
+<div class="modal fade" id="sPList" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="text-align-right padding-10">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button></div>
+            <div class="modal-header">
+                <h4 class="modal-title">Products by Supplier (in stock)</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row dash">
+                    <table mat-table [dataSource]="sPDataSource" matSort class="mat-elevation-z8">
+
+                        <ng-container matColumnDef="id">
+                            <th mat-header-cell *matHeaderCellDef class="headerProductId"> Prod. ID
+                            </th>
+                            <td mat-cell *matCellDef="let product" class="text-align-center"> {{product.id}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="productName">
+                            <th mat-header-cell *matHeaderCellDef class="headerProductname"> Product
+                            </th>
+                            <td mat-cell *matCellDef="let product"> {{product.productName}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="availability">
+                            <th mat-header-cell *matHeaderCellDef> Stock </th>
+                            <td mat-cell *matCellDef="let product"><input type="checkbox"
+                                    [checked]="product.availability" onclick="return false"> </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="pDisplayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: pDisplayedColumns;"></tr>
+                    </table>
+                    <br>
+
+                </div>
+                <div class="flex-space-evenly">
+                    <!-- Buttons -->
+                    <button type="button" data-dismiss="modal" class="btn popup btn-dark">Close</button>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- Supplier-Product List OUT-->
+<div class="modal fade" id="sPListOUT" tabindex="-1">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="text-align-right padding-10">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button></div>
+                <div class="modal-header">
+                    <h4 class="modal-title">Products by Supplier (out of stock)</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row dash">
+                        <table mat-table [dataSource]="sPDataSourceOUT" matSort class="mat-elevation-z8">
+    
+                            <ng-container matColumnDef="id">
+                                <th mat-header-cell *matHeaderCellDef class="headerProductId"> Prod. ID
+                                </th>
+                                <td mat-cell *matCellDef="let product" class="text-align-center"> {{product.id}} </td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="productName">
+                                <th mat-header-cell *matHeaderCellDef class="headerProductname"> Product
+                                </th>
+                                <td mat-cell *matCellDef="let product"> {{product.productName}} </td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="availability">
+                                <th mat-header-cell *matHeaderCellDef> Stock </th>
+                                <td mat-cell *matCellDef="let product"><input type="checkbox"
+                                        [checked]="product.availability" onclick="return false"> </td>
+                            </ng-container>
+    
+                            <tr mat-header-row *matHeaderRowDef="pDisplayedColumnsOUT"></tr>
+                            <tr mat-row *matRowDef="let row; columns: pDisplayedColumnsOUT;"></tr>
+                        </table>
+                        <br>
+    
+                    </div>
+                    <div class="flex-space-evenly">
+                        <!-- Buttons -->
+                        <button type="button" data-dismiss="modal" class="btn popup btn-dark">Close</button>
+                    </div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
