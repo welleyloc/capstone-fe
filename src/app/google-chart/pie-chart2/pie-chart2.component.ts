@@ -41,7 +41,7 @@ export class PieChart2Component implements OnInit {
     var options = {
       'title': 'Product distribution by Supplier',
       'width': 400,
-      'height': 300
+      'height': 400
     };
     
     let chart = new this.gLib.visualization.PieChart(document.getElementById('pieChart2'));
