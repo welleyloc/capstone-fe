@@ -2,7 +2,7 @@
 
 This is part 2 of 2 of my final class project.
 
-The front-end repository is found here: [Spring back-end](https://github.com/welleyloc/capstone-be)
+The back-end repository is found here: [Spring back-end](https://github.com/welleyloc/capstone-be)
 
 Full stack project completion ~2 wks.
 
